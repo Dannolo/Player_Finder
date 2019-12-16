@@ -23,7 +23,6 @@ exports.getPlayerSRK = async function(name) {
     var url = 'http://rank.shoryuken.com/api/player/name/'+name
     var response = await axios.get(url)
     var player = new model(response.data)
-    //reorderTournaments(player.results)
     return player      
   } catch (error) {
     console.error(error);
