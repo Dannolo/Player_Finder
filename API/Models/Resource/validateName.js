@@ -20,6 +20,4 @@ function validateNameSpace(name){
 }
 
 // now we export the class so other modules can create Tournament objects
-module.exports = {
-    validateName: validateName
-}
+exports.validateName = validateName

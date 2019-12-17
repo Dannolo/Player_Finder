@@ -1,20 +1,6 @@
 // package needed
 
-const { orderBy } = require('natural-orderby')
-const models = require("./tournament")
-const Tournament = models.Tournament
-
-// constructor function for creatingList cronologically tournaments
-function creatingList(list) {
-    let tournaments = []
-    list.forEach(element => {
-        let tourney = new Tournament(element)
-        tournaments.push(tourney)
-    })
-    orderBy(tournaments,[v => v.date],['desc'])
-    console.log(tournaments)
-    return tournaments
-}
+const creatingList = require("./Resource/creatingList").creatingList
 
 // constructor function for the Player class
 function Player(player) {
@@ -26,7 +12,7 @@ function Player(player) {
     this.results = creatingList(player.results)
 }
 
- 
+
 // now we export the class so other modules can create Player objects
 module.exports = {
     Player: Player
