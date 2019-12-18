@@ -4,7 +4,6 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
-const ReactDOM = require('react')
 
 //Declaring a parser for request
 const bodyParser = require('body-parser')

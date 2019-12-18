@@ -15,9 +15,17 @@ module.exports = function (app) {
 //ONLY FOR TESTING
     app.route('/players/:name')
         .get(async function (req,res){
-            let matches = await getPlayer.getPlayerMatchesSMASH('PUT TOURNEY NAME HERE', 'dragon-ball-fighterz', 'PUT PLAYER NAME HERE')
-            if (matches != null) {
-            player.results[index].matches.push(matches)
-        }
+            let matches = await getPlayer.getPlayerMatchesSMASHbyDisplayName('the-mixup-2019', 'dgb-dragon-ball-fighterz', req.params.name)
+            res.json(matches)
         })
+
+
+//ONLY FOR TESTING
+    app.route('/playersi/:name')
+        .get(async function (req,res){
+            console.log("FFF")
+            let matches = await getPlayer.getPlayerMatchesSMASHbySmashTag('sonic-boom-v','dragon ball fighterz', req.params.name)
+            res.json(matches)
+        }
+        )
     }

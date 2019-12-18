@@ -6,6 +6,7 @@ const model = models.Player
 //const reorderTournaments = models.reordering
 const smashgg = require('smashgg.js');
 const { Event } = smashgg;
+const Tournament = smashgg.Tournament
 
 //AuthS Key
 smashgg.initialize('371d53adec5bb1afdc3537835d792c19');
@@ -15,7 +16,7 @@ function validateName(name) {
     if (name[index] == "|") {
       name = name.substring(index + 1, name.length)
       return name.trim()
-    }
+    } 
   }
   return name
 }
@@ -53,7 +54,58 @@ exports.getPlayerSRK = async function (name) {
 }
 
 //Getting tournament datas from Smash.gg
-exports.getPlayerMatchesSMASH = async function (tournament, event, name) {
+exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, name) {
+  // try {
+
+  // } catch (error) {
+  //   return null
+  // }
+
+  let playerSets = []
+  let tourney = await Tournament.get(tournament)
+  let events = await tourney.getEvents()
+  
+  let attends = await tourney.searchAttendees(name)
+  let attend = attends[0]
+  
+  let id = attend.getId()
+  
+  for (const event of events) {
+    if(event.videogamename.toLowerCase() == genre){
+      let phases = await event.getPhases()
+      for (const phase of phases) {
+        //Cycling on Phases(Pools, TOP48 ecc..)
+        if (phase.numSeeds <= 64) {
+          const sets = await phase.getSets()
+  
+          //Cycling on Sets(Every match done in that phase) and taking only where player is
+          for (const set of sets) {
+            let displayscore = set.displayScore
+            let players = []
+            if(displayscore != "DQ"){
+              players = divide(displayscore)
+              players[0] = validateName(players[0]).toLowerCase()
+              players[1] = validateName(players[1]).toLowerCase()
+                          
+            for (const player of players) {
+              if (player == name) {
+                playerSets.push(set)
+              }
+            }
+
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  return playerSets
+}
+
+//Getting tournament datas from Smash.gg
+exports.getPlayerMatchesSMASHbyDisplayName = async function (tournament, event, name) {
   try {
     let playerSets = []
     let tourney = await Event.get(tournament, event)
