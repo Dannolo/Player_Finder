@@ -4,6 +4,7 @@ const validateName = require("./Resource/validateName").validateName
 function Tournament(tournament) {
     // this.name = validateName(tournament.tournamentname)
     this.name = validateName(tournament.tournamentname)
+    this.slug = validateName(tournament.tournamentname).toLowerCase()
     this.date = tournament.date
     this.characters = tournament.characters
     this.place = tournament.place

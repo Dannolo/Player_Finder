@@ -1,9 +1,7 @@
 //All methods necessaries to take players Informations
 
 const axios = require('axios').default
-const models = require('../../Models/player')
-const model = models.Player
-//const reorderTournaments = models.reordering
+const model = require('../../Models/player').Player
 const smashgg = require('smashgg.js');
 const { Event } = smashgg;
 const Tournament = smashgg.Tournament
@@ -55,12 +53,7 @@ exports.getPlayerSRK = async function (name) {
 
 //Getting tournament datas from Smash.gg
 exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, name) {
-  // try {
-
-  // } catch (error) {
-  //   return null
-  // }
-
+  try {
   let playerSets = []
   let tourney = await Tournament.get(tournament)
   let events = await tourney.getEvents()
@@ -82,15 +75,12 @@ exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, nam
           for (const set of sets) {
             let displayscore = set.displayScore
             let players = []
-            if(displayscore != "DQ"){
-              players = divide(displayscore)
-              players[0] = validateName(players[0]).toLowerCase()
-              players[1] = validateName(players[1]).toLowerCase()
+              players[0] = set.player1.attendeeIds[0]
+              players[1] = set.player2.attendeeIds[0]
                           
             for (const player of players) {
-              if (player == name) {
+              if (player == id) {
                 playerSets.push(set)
-              }
             }
 
             }
@@ -99,9 +89,12 @@ exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, nam
       }
     }
   }
-
-
   return playerSets
+  } catch (error) {
+    return null
+  }
+
+  
 }
 
 //Getting tournament datas from Smash.gg
@@ -121,6 +114,7 @@ exports.getPlayerMatchesSMASHbyDisplayName = async function (tournament, event, 
         for (const set of sets) {
           let displayscore = set.displayScore
           let players = []
+          if(displayscore != "DQ"){
           players = divide(displayscore)
           players[0] = validateName(players[0]).toLowerCase()
           players[1] = validateName(players[1]).toLowerCase()
@@ -129,6 +123,8 @@ exports.getPlayerMatchesSMASHbyDisplayName = async function (tournament, event, 
             if (player == name) {
               playerSets.push(set)
             }
+          }
+
           }
         }
       }
