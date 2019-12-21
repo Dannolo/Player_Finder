@@ -9,7 +9,10 @@ module.exports = function (app) {
     app.route('/player/:name')
         .get(async function (req, res) {
             let player = await getPlayer.getPlayerSRK(req.params.name)
-            player.matches = await getPlayer.getPlayerMatchesSMASHbySmashTag('the-colosseum-spring-2018', 'dragon ball fighterz', req.params.name)
+            for (const event of player.events) {
+                event.matches = await getPlayer.getPlayerMatchesSMASHbySmashTag('the-colosseum-spring-2018', 'dragon ball fighterz', req.params.name)
+
+            }
             res.json(player)
         })
 

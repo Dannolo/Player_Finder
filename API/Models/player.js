@@ -9,7 +9,7 @@ function Player(player) {
     this.realname = player.realname
     this.smashId = player.smashId
     this.team = player.teams[0]
-    this.results = creatingList(player.results)
+    this.events = creatingList(player.results)
 }
 
 
