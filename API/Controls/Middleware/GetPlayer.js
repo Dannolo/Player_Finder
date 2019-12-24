@@ -26,7 +26,6 @@ function divide(displayName) {
     if (displayName[index] == "-") {
       names.push(displayName.substring(0, index - 3))
       names.push(displayName.substring(index + 2, displayName.length - 2))
-
       return names
     }
   }

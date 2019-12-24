@@ -10,6 +10,8 @@ function Player(player) {
     this.smashId = player.smashId
     this.team = player.teams[0]
     this.events = creatingList(player.results)
+
+    getName = () => {return this.name} 
 }
 
 

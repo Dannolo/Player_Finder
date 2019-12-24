@@ -8,7 +8,11 @@ function Match(match) {
     this.player2 = match.player2.tag
     this.score1 = match.score1
     this.score2 = match.score2
+    
+    getMatch = () => {return this.displayScore} 
 }
+
+
 
 // now we export the class so other modules can create Tournament objects
 module.exports = {
