@@ -1,7 +1,8 @@
 //All methods necessaries to take players Informations
 
 const axios = require('axios').default
-const model = require('../../Models/player').Player
+const Player = require('../../Models/player').Player
+const Match = require('../../Models/match').Match
 const smashgg = require('smashgg.js');
 const { Event } = smashgg;
 const Tournament = smashgg.Tournament
@@ -44,7 +45,7 @@ exports.getPlayerSRK = async function (name) {
   try {
     var url = 'http://rank.shoryuken.com/api/player/name/' + name
     var response = await axios.get(url)
-    var player = new model(response.data)
+    var player = new Player(response.data)
     return player
   } catch (error) {
     console.error(error);
@@ -80,7 +81,8 @@ exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, nam
                           
             for (const player of players) {
               if (player == id) {
-                playerSets.push(set)
+                let match = new Match(set)
+                playerSets.push(match)
             }
 
             }
