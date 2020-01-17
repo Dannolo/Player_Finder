@@ -3,6 +3,7 @@
 module.exports = function (app) {
 
     const axios = require('axios').default
+    const moment = require('moment')
     const getPlayer = require("../Controls/Middleware/GetPlayer")
     const getTournamentsList = require("../Controls/Middleware/getTournamentList").getTournamentsList
     const smashgg = require("../../node_modules/smashgg.js")
@@ -10,10 +11,14 @@ module.exports = function (app) {
 
 
 
+
+
     app.route('/player/:name')
         .get(async function (req, res) {
+            // let list = []
+            // list = await getTournamentsList()
             let player = await getPlayer.getPlayerSRK(req.params.name)
-            for (let index = 0; index < 10; index++) {
+            for (let index = 0; index < player.events.length; index++) {
                 player.events[index].matches = await getPlayer.getPlayerMatchesSMASHbySmashTag(player.events[index].slug, player.events[index].game, req.params.name)
             }
             res.json(player)

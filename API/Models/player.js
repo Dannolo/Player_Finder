@@ -3,7 +3,7 @@
 const creatingList = require("./Resource/creatingList").creatingList
 
 // constructor function for the Player class
-function Player(player) {
+function Player(player, list) {
     this.name = player.name
     this.country = player.country
     this.realname = player.realname

@@ -2,11 +2,13 @@
 
 const creatingList = require("./Resource/creatingList").creatingList
 const Node = require("./node").Node
+const validateSlug = require("./Resource/validateName").validateSlug
 
 
 function getEventsNames(events) {
     let names = []
-    for (const node of events) {
+    for (let node of events) {
+        node.slug = validateSlug(node.slug)
         names.push(node.slug)
     }
     return names
@@ -23,7 +25,6 @@ function getEvents(tournamentsList){
 
 // constructor function for the List class
 function TournamentsList(tournamentsList) {
-
     this.events = getEvents(tournamentsList)
     this.names = getEventsNames(this.events)
 }
