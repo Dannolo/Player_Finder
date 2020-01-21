@@ -4,7 +4,7 @@ const normalize_game = require("./Resource/normalize_game").normalize_game
 var stringSimilarity = require('string-similarity')
 var example = require("../Models/listTournamentEXAMPLE").listanomi
 
-
+//lallero
 // constructor function for the Event class
 function Event(tournament) {
     this.name = validateComma(tournament.tournamentname)
