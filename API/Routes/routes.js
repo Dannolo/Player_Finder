@@ -3,33 +3,35 @@
 module.exports = function (app) {
 
     const axios = require('axios').default
+
     const moment = require('moment')
     const getPlayer = require("../Controls/Middleware/GetPlayer")
     const getTournamentsList = require("../Controls/Middleware/getTournamentList").getTournamentsList
     const smashgg = require("../../node_modules/smashgg.js")
     const Tournament = smashgg.Tournament
 
-
-
-
-
-    app.route('/player/:name')
+    app.route('/player/')
         .get(async function (req, res) {
             // let list = []
             // list = await getTournamentsList()
-            let player = await getPlayer.getPlayerSRK(req.params.name)
-            for (let index = 0; index < player.events.length; index++) {
-                player.events[index].matches = await getPlayer.getPlayerMatchesSMASHbySmashTag(player.events[index].slug, player.events[index].game, req.params.name)
+        
+            try {
+                let player = await getPlayer.getPlayerSRK(req.query.name)
+                res.json(player)
+            } catch (error) {
+                res.json(error)
             }
-            res.json(player)
+
         })
 
     //ONLY FOR TESTING
-    app.route('/playersi/:name')
+    app.route('/event/')
         .get(async function (req, res) {
-            let list = []
-            list = await getTournamentsList()
-            res.json(list[0].names)
+            try {
+                player.events[index].matches = await getPlayer.getPlayerMatchesSMASHbySmashTag(player.events[index].slug, player.events[index].game, req.params.name)
+            } catch (error) {
+                return error
+            }
         })
 
 

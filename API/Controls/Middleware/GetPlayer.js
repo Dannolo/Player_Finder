@@ -67,10 +67,11 @@ exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, nam
     if(event.videogamename.toLowerCase() == genre){
       let phases = await event.getPhases()
       for (const phase of phases) {
+        
         //Cycling on Phases(Pools, TOP48 ecc..)
         if (phase.numSeeds <= 64) {
           const sets = await phase.getSets()
-  
+
           //Cycling on Sets(Every match done in that phase) and taking only where player is
           for (const set of sets) {
             let displayscore = set.displayScore

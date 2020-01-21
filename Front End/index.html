@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="icon" href="img/fav-icon.png" type="image/x-icon" />
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Player Finder</title>
+
+        <!-- Icon css link -->
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/icofont.css" rel="stylesheet">
+        
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        
+        <!-- Rev slider css -->
+        <link href="vendors/revolution/css/settings.css" rel="stylesheet">
+        <link href="vendors/revolution/css/layers.css" rel="stylesheet">
+        <link href="vendors/revolution/css/navigation.css" rel="stylesheet">
+        <link href="vendors/animate-css/animate.css" rel="stylesheet">
+        
+        <!-- Extra plugin css -->
+        <link href="vendors/magnific-popup/magnific-popup.css" rel="stylesheet">
+        <link href="vendors/owl-carousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="vendors/magnific-popup/magnific-popup.css" rel="stylesheet">
+        <link rel="stylesheet" href="vendors/flexslider/flex-slider.css">
+        <link href="css/spinner.css" rel="stylesheet">
+        
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/responsive.css" rel="stylesheet">
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+    </head>
+    <body data-spy="scroll" data-target="#bs-example-navbar-collapse-1" data-offset="90">
+       
+       
+       <div id="preloader">
+            <div id="preloader_spinner">
+				<div class="pre_inner">
+					<div class="dot dot-1"></div>
+					<div class="dot dot-2"></div>
+					<div class="dot dot-3"></div>
+				</div>
+            </div>
+        </div>
+       
+        <div class="body-padding">
+          
+			<!--================Side Navigation Area =================-->
+        <div class="offcanvas_menu">
+            <div class="close_icon">
+                <i class="icofont icofont-close-line"></i>
+            </div>
+            <div class="offcanvas_text" id="bs-example-navbar-collapse-1">
+                <ul class="nav flex-column">
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li><a href="#how">How it work?</a></li>
+                    <li><a href="#team">Team</a></li>
+                </ul>
+                <div class="social_link">
+                    <ul>
+                        <li><a href="https://www.facebook.com/">Facebook</a></li>
+                        <li><a href="https://www.twitter.com/">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--================End Side Navigation Area =================-->
+			                      
+            <!--====================Header Menu Area====================-->
+            <header class="mobile_menu_inner">
+            	<div class="pull-left">
+            		<a href="#"><img src="INSERIE PLAYER FINDER" alt=""></a>
+            	</div>
+            	<div class="pull-right">
+            		<div class="mobile_menu_icon">
+            			<h4>Follow Us -</h4>
+            			<ul>
+            				<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            				<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            				<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+            			</ul>
+            		</div>
+            		<div class="menu_icon">
+            			<i class="fa fa-bars" aria-hidden="true"></i>
+            		</div>
+            	</div>
+            </header>
+            <!--====================Header Menu Area====================-->
+            
+            <!--====================Header Banner Area====================-->
+            <section class="header_banner_area">
+            	<div class="container">
+            		<div class="header_banner_inner">
+            		    <h3>PLAYER FINDER</h3>
+            		    <p>Find the matches of your favorite players</p>
+            			<div class="subscrib_inner">
+							<div class="input-group">
+								<input type="text" class="form-control" id="player" placeholder="Enter your player">
+								<span class="input-group-btn">
+									<button class="btn btn-default" onclick="loadData()" type="button">SEARCH</button>
+								</span>
+							</div>
+						</div>
+            			<div class="bottom_imag">
+            				<img src="img/home-3/header-mobile.png" alt="">
+            			</div>
+            		</div>
+            	</div>
+            </section>
+            <!--====================End Header Banner Area====================-->
+            
+            <!--====================Loading and Player Banner Area====================-->
+
+            <section class="h_work_area" id="how">
+                <div class="container">
+                    <div class="main_title">
+                        <h2><span id="Player_Name"></span></h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim.</p>
+                    </div>
+                    <div class="row h_work_inner">
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="h_work_item">
+                                <div class="h-round">
+                                    <i class="icofont icofont-chart-line"></i>
+                                </div>
+                                <h3 class="h-title">Clean Layout</h3>
+                                <p class="text-p">There are many variations of passages of Lorem Ipsum available, but the majority.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="h_work_item">
+                                <div class="h-round">
+                                    <i class="icofont icofont-chart-line"></i>
+                                </div>
+                                <h3 class="h-title">Clean Layout</h3>
+                                <p class="text-p">There are many variations of passages of Lorem Ipsum available, but the majority.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="h_work_item">
+                                <div class="h-round">
+                                    <i class="icofont icofont-chart-line"></i>
+                                </div>
+                                <h3 class="h-title">Clean Layout</h3>
+                                <p class="text-p">There are many variations of passages of Lorem Ipsum available, but the majority.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- this will show our spinner -->
+            <div hidden id="spinner"></div>
+
+            <!--====================End Loading and Player Banner Area====================-->
+
+            <!--==================== h_work_area ====================-->
+            <section class="h_work_area" id="how">
+                <div class="container">
+                    <div class="main_title">
+                        <h2>HOW IT <span>WORK ?</span></h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim.</p>
+                    </div>
+                    <div class="row h_work_inner">
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="h_work_item">
+                                <div class="h-round">
+                                    <i class="icofont icofont-chart-line"></i>
+                                </div>
+                                <h3 class="h-title">Clean Layout</h3>
+                                <p class="text-p">There are many variations of passages of Lorem Ipsum available, but the majority.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="h_work_item">
+                                <div class="h-round">
+                                    <i class="icofont icofont-chart-line"></i>
+                                </div>
+                                <h3 class="h-title">Clean Layout</h3>
+                                <p class="text-p">There are many variations of passages of Lorem Ipsum available, but the majority.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="h_work_item">
+                                <div class="h-round">
+                                    <i class="icofont icofont-chart-line"></i>
+                                </div>
+                                <h3 class="h-title">Clean Layout</h3>
+                                <p class="text-p">There are many variations of passages of Lorem Ipsum available, but the majority.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--==================== h_work_area ====================-->
+           
+
+
+
+            <!--==================== team_area-three ====================-->
+            <section class="team_area_three" id="team">
+                <div class="container">
+                    <div class="main_title">
+                        <h2>Our Expert <span>Team</span></h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim.</p>
+                    </div>
+                    <div class="row team-member">
+                        <div class="col-md-3 col-xs-6">
+                            <div class="team_item">
+                                <img src="https://cc-media-foxit.fichub.com/image/fox-it-mondofox/efdb4bb8-46ac-4f45-9313-babc3df0f77f/come-sbloccare-il-finale-segreto-di-kingdom-hearts-3-maxw-824.jpg" alt="">
+                                <div class="team-content">
+                                    <div class="text">
+                                        <h4>ROBERTO PE</h4>
+                                        <h5>Developer</h5>
+                                        <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below.</p>
+                                    </div>
+                                    <div class="social-icon">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                        <a href="#"><i class="fa fa-link"></i></a>
+                                        <a href="#"><i class="fa fa-pinterest-square"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-6">
+                            <div class="team_item">
+                                <img src="https://scontent-mxp1-1.xx.fbcdn.net/v/t1.0-9/s960x960/67798738_10217782986879925_8800513698901786624_o.jpg?_nc_cat=106&_nc_ohc=Vodt8T7Py4QAX8q5Da4&_nc_ht=scontent-mxp1-1.xx&_nc_tp=1002&oh=1d4b8134dfbaf08b22bdb478272475f6&oe=5E99854C" alt="">
+                                <div class="team-content">
+                                    <div class="text">
+                                        <h4>ROBERTO PE</h4>
+                                        <h5>Developer</h5>
+                                        <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below.</p>
+                                    </div>
+                                    <div class="social-icon">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                        <a href="#"><i class="fa fa-link"></i></a>
+                                        <a href="#"><i class="fa fa-pinterest-square"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--==================== team_area-three ====================-->
+            
+            <!--====================Footer Area ====================-->
+            <footer class="footer_three_area">
+            	<div class="container">
+            		<div class="footer_widget_inner">
+            			<div class="row">
+            				<div class="col-md-4 col-xs-6">
+            					<aside class="f_three_widget ab_ft_widget">
+            						<img src="img/ft-logo-3.png" alt="">
+            						<p>If you are going to use a passage of Lorem Ipsum, you need to be sure</p>
+            						<ul>
+            							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+            							<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+            						</ul>
+            					</aside>
+            				</div>
+            				<div class="col-md-2 col-xs-3">
+            					<aside class="f_three_widget link_ft_widget">
+            						<div class="ft_title">
+            							<h3>NEWS</h3>
+            						</div>
+            						<ul>
+            							<li><a href="#">Subsciption</a></li>
+            							<li><a href="#">New Apps</a></li>
+            							<li><a href="#">Download now</a></li>
+            						</ul>
+            					</aside>
+            				</div>
+            				<div class="col-md-2 col-xs-3">
+            					<aside class="f_three_widget link_ft_widget">
+            						<div class="ft_title">
+            							<h3>COMPANY</h3>
+            						</div>
+            						<ul>
+            							<li><a href="#">Screenshot</a></li>
+            							<li><a href="#">Fetures</a></li>
+            							<li><a href="#">Price</a></li>
+            						</ul>
+            					</aside>
+            				</div>
+            				<div class="col-md-2 col-xs-3">
+            					<aside class="f_three_widget link_ft_widget">
+            						<div class="ft_title">
+            							<h3>RESOURCES</h3>
+            						</div>
+            						<ul>
+            							<li><a href="#">Support</a></li>
+            							<li><a href="#">Contact</a></li>
+            							<li><a href="#">Privacy & term</a></li>
+            						</ul>
+            					</aside>
+            				</div>
+            				<div class="col-md-2 col-xs-3">
+            					<aside class="f_three_widget link_ft_widget">
+            						<div class="ft_title">
+            							<h3>SOLUTIONS</h3>
+            						</div>
+            						<ul>
+            							<li><a href="#">Bug fixing</a></li>
+            							<li><a href="#">Upgrade</a></li>
+            							<li><a href="#">Malware protect</a></li>
+            						</ul>
+            					</aside>
+            				</div>
+            			</div>
+            		</div>
+            		<div class="ft_copyright">
+            			<div class="container">
+            				<p class="copyright">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+            			</div>
+            		</div>
+            	</div>
+            </footer>
+            <!--====================End Footer area ====================-->
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="js/jquery-2.2.4.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- Rev slider js -->
+        <script src="vendors/revolution/js/jquery.themepunch.tools.min.js"></script>
+        <script src="vendors/revolution/js/jquery.themepunch.revolution.min.js"></script>
+        <script src="vendors/revolution/js/extensions/revolution.extension.video.min.js"></script>
+        <script src="vendors/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+        <script src="vendors/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+        <script src="vendors/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+        <!-- Extra Plugin -->
+        <script src="js/apear.js"></script>
+        <script src="js/countto.js"></script>
+        <script src="vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
+        <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+        <script src="vendors/isotope/imagesloaded.pkgd.min.js"></script>
+        <script src="vendors/isotope/isotope.pkgd.min.js"></script>
+        <script src="vendors/circle-progress/circle-progress.js"></script>
+        <script src="vendors/flexslider/flex-slider.js"></script>
+        <script src="vendors/flexslider/mixitup.js"></script>
+        <script src="vendors/counterup/waypoints.min.js"></script>
+        <script src="vendors/counterup/jquery.counterup.min.js"></script>
+        <script src="vendors/swiper/js/swiper.min.js"></script>
+        <script src="vendors/flipster-slider/jquery.flipster.min.js"></script>
+        <script src="vendors/nice-selector/jquery.nice-select.min.js"></script>
+        <!--gmaps Js-->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+        <script src="js/gmaps.min.js"></script>
+        
+        <script src="js/theme.js"></script>
+        <script src="js/spinner.js"></script>
+
+    </body>
+</html>
