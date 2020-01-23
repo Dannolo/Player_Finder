@@ -55,11 +55,25 @@ exports.getPlayerSRK = async function (name) {
 exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, name) {
   try {
   let playerSets = []
-  let tourney = await Tournament.get(tournament)
+  let tourney
+  let attends
+  let attend
+
+  try {
+    tourney = await Tournament.get(tournament)
+  } catch (error) {
+    return "No tournament with this name has been found, please be sure to have typed it right."
+  }
+  
   let events = await tourney.getEvents()
   
-  let attends = await tourney.searchAttendees(name)
-  let attend = attends[0]
+  try {
+    attends = await tourney.searchAttendees(name)
+    attend = attends[0]
+    console.log(attend)
+  } catch (error) {
+    return "No player with this name in this event has been found, please be sure to have typed it right."
+  }
   
   let id = attend.getId()
   
@@ -93,7 +107,7 @@ exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, nam
   }
   return playerSets
   } catch (error) {
-    return null
+    return "Error 404"
   }
 
   
