@@ -10,11 +10,24 @@ module.exports = function (app) {
     const smashgg = require("../../node_modules/smashgg.js")
     const Tournament = smashgg.Tournament
 
+    const proPlayer = require('../Models/ProPlayer')
+    const playerHero = require('../Models/PlayerHero')
+    const hero = require('../Models/Hero')
+
+    const initializeProPlayers = require('../Controls/Middleware/initializeProPlayers');
+    const initializeHeroes = require('../Controls/Middleware/initializeHeroes');
+    const getCompleteInfo = require('../Controls/Middleware/getCompleteInfo');
+
+    let proPlayers = new Array();
+    let allHeroes = new Array();
+    let data = null;
+    let parsed_data = null;
+
     app.route('/player/')
         .get(async function (req, res) {
             // let list = []
             // list = await getTournamentsList()
-        
+
             try {
                 let player = await getPlayer.getPlayerSRK(req.query.name)
                 res.json(player)
@@ -42,4 +55,54 @@ module.exports = function (app) {
             res.json(matches)
         }
         )
+
+    //Lista dei pro player
+    app.route('/ProPlayer')
+      .get(async function(req, res){
+        try {
+
+          proPlayers = await initializeProPlayers.initializeProPlayers();
+          res.json(proPlayers);
+
+        } catch (error) {
+          console.log('\nYou need to create the hero before readying it!')
+        }
+      });
+
+    //Ottenimento varie info player: winrate, ...
+    app.route('/Player')
+      .get(async function(req, res){
+        try{
+
+          //Ottieni giocatori pro se non ci sono ancora
+          if(proPlayers.length === 0){
+            proPlayers = await initializeProPlayers.initializeProPlayers();
+          }
+
+          //Ottieni gli eroi se non ci sono ancora
+          if(allHeroes.length === 0){
+            allHeroes = await initializeHeroes.initializeHeroes();
+          }
+
+          //Variabili di supporto
+          var player_1 = proPlayers.find(o => o.name === req.query.player_1);
+          var actualHero_1 = allHeroes.find(o => o.name === req.query.hero_1);
+          var player_2 = proPlayers.find(o => o.name === req.query.player_2);
+          var actualHero_2 = allHeroes.find(o => o.name === req.query.hero_2);
+
+          //Raccolta dati player_1
+          player_1 = await getCompleteInfo.getCompleteInfo(player_1, actualHero_1, actualHero_2);
+
+          //Raccolta dati player_2
+          player_2 = await getCompleteInfo.getCompleteInfo(player_2, actualHero_2, actualHero_1);
+
+          res.json({
+            "player_1" : player_1,
+            "player_2" : player_2
+          })
+
+        } catch (error) {
+          console.log('\n' + error)
+        }
+      });
 }
