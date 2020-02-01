@@ -1,9 +1,9 @@
-// package needed
+//Modules
 
 const creatingList = require("./Resource/creatingList").creatingList
 
 // constructor function for the Player class
-function Player(player, list) {
+function Player(player) {
     this.name = player.name
     this.country = player.country
     this.realname = player.realname

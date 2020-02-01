@@ -47,7 +47,12 @@ exports.getPlayerSRK = async function (name) {
     var player = new Player(response.data)
     return player
   } catch (error) {
-    console.error(error);
+    return res.json({
+      "success": false,
+      "message": "No player with this name has been found, please be sure to have typed it right.",
+      "error": "400",
+      "data": { }
+  })
   }
 }
 
@@ -62,7 +67,12 @@ exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, nam
   try {
     tourney = await Tournament.get(tournament)
   } catch (error) {
-    return "No tournament with this name has been found, please be sure to have typed it right."
+    return res.json({
+      "success": false,
+      "message": "No tournament with this name has been found, please be sure to have typed it right.",
+      "error": "400",
+      "data": {}
+    })
   }
   
   let events = await tourney.getEvents()
@@ -70,9 +80,13 @@ exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, nam
   try {
     attends = await tourney.searchAttendees(name)
     attend = attends[0]
-    console.log(attend)
   } catch (error) {
-    return "No player with this name in this event has been found, please be sure to have typed it right."
+    return res.json({
+      "success": false,
+      "message": "No player with this name in this event has been found, please be sure to have typed it right.",
+      "error": "400",
+      "data": {}
+    })
   }
   
   let id = attend.getId()
@@ -107,7 +121,12 @@ exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, nam
   }
   return playerSets
   } catch (error) {
-    return "Error 404"
+    return res.json({
+      "success": false,
+      "message": "Something went wrong",
+      "error": "400",
+      "data": {}
+    })
   }
 
   

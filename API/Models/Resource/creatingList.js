@@ -2,7 +2,7 @@ const Event = require("../event").Event
 const { orderBy } = require('natural-orderby')
 
 // constructor function for creatingList cronologically tournaments
-function creatingList(list, tournamentsList) {
+function creatingList(list) {
     let tournaments = []
     list.forEach(element => {
         let tourney = new Event(element)
@@ -10,7 +10,7 @@ function creatingList(list, tournamentsList) {
             tournaments.push(tourney)
         }
     })
-    orderBy(tournaments, [v => v.date], ['desc'])
+    tournaments = orderBy(tournaments, [tourney => tourney.date.toDate()], ['desc'])
     return tournaments
 }
 

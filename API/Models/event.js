@@ -1,8 +1,14 @@
+//Modules
+
 const validateName = require("./Resource/validateName").validateName
 const validateComma = require("./Resource/validateName").validateComma
 const normalize_game = require("./Resource/normalize_game").normalize_game
 var stringSimilarity = require('string-similarity')
+var moment = require('moment')
+
+
 var example = require("../Models/listTournamentEXAMPLE").listanomi
+moment().format()
 
 
 // constructor function for the Event class
@@ -10,7 +16,7 @@ function Event(tournament) {
     this.name = validateComma(tournament.tournamentname)
     this.slug = validateName(tournament.tournamentname).toLowerCase()
     this.slugAdjusted = checkName(validateName(tournament.tournamentname).toLowerCase(), example)
-    this.date = tournament.date
+    this.date = moment(tournament.date)
     this.characters = tournament.characters
     this.place = tournament.place
 

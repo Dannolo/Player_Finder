@@ -1,5 +1,4 @@
 //Defining core variables for the server to start
-//ONLY FOR DEBUG RIGHT NOW
 
 const express = require('express')
 const app = express()
@@ -9,15 +8,14 @@ const port = process.env.PORT || 3000
 //Declaring a parser for request
 const bodyParser = require('body-parser')
 
-app.use('*', function(req, res, next) {
-  //replace localhost:8080 to the ip address:port of your server
+app.use('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   res.header('Access-Control-Allow-Credentials', true);
-  next(); 
-  });
-  
+  next();
+});
+
 //enable pre-flight
 app.options('*', cors());
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -32,5 +30,5 @@ app.use(function (req, res) {
 
 app.listen(port)
 
-console.log('It works')
+console.log('WELCOME TO PLAYER FINDER')
 
