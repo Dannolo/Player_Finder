@@ -17,6 +17,7 @@ module.exports = function (app) {
     const initializeProPlayers = require('../Controls/Middleware/initializeProPlayers');
     const initializeHeroes = require('../Controls/Middleware/initializeHeroes');
     const getCompleteInfo = require('../Controls/Middleware/getCompleteInfo');
+    const comparePlayers = require('../Controls/BusinessLogic/comparePlayers');
 
     let proPlayers = new Array();
     let allHeroes = new Array();
@@ -57,7 +58,7 @@ module.exports = function (app) {
         )
 
     //Lista dei pro player
-    app.route('/ProPlayer')
+    app.route('/proPlayers')
       .get(async function(req, res){
         try {
 
@@ -65,12 +66,25 @@ module.exports = function (app) {
           res.json(proPlayers);
 
         } catch (error) {
-          console.log('\nYou need to create the hero before readying it!')
+          console.log('\nError in retrieving informations about proplayers')
+        }
+      });
+
+    //Lista degli eroi
+    app.route('/heroes')
+      .get(async function(req, res){
+        try{
+
+          allHeroes = await initializeHeroes.initializeHeroes();
+          res.json(allHeroes);
+
+        } catch (error) {
+          console.log('\nError in retrieving informations about heroes')
         }
       });
 
     //Ottenimento varie info player: winrate, ...
-    app.route('/Player')
+    app.route('/foreseeMatch')
       .get(async function(req, res){
         try{
 
@@ -96,10 +110,14 @@ module.exports = function (app) {
           //Raccolta dati player_2
           player_2 = await getCompleteInfo.getCompleteInfo(player_2, actualHero_2, actualHero_1);
 
+          let playersPoints = await comparePlayers.comparePlayers(player_1, player_2);
+
           res.json({
-            "player_1" : player_1,
-            "player_2" : player_2
-          })
+                    "player_1" : player_1,
+                    "player_2" : player_2,
+                    "player_1_points" : playersPoints[0],
+                    "player_2_points" : playersPoints[1]
+                  });
 
         } catch (error) {
           console.log('\n' + error)
