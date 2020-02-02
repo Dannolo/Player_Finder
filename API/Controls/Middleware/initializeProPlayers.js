@@ -1,6 +1,6 @@
-proPlayer = require('../../Models/ProPlayer')
+const proPlayer = require('../../Models/ProPlayer')
 
-getRequestTo = require('./getRequestTo');
+const getRequestTo = require('./getRequestTo');
 
 
 exports.initializeProPlayers = async function(){

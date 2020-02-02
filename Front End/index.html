@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+
         <link rel="icon" href="img/fav-icon.png" type="image/x-icon" />
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>Player Finder</title>
@@ -12,23 +12,25 @@
         <!-- Icon css link -->
         <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="css/icofont.css" rel="stylesheet">
-        
+
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
-        
+
         <!-- Rev slider css -->
         <link href="vendors/revolution/css/settings.css" rel="stylesheet">
         <link href="vendors/revolution/css/layers.css" rel="stylesheet">
         <link href="vendors/revolution/css/navigation.css" rel="stylesheet">
         <link href="vendors/animate-css/animate.css" rel="stylesheet">
-        
+
         <!-- Extra plugin css -->
         <link href="vendors/magnific-popup/magnific-popup.css" rel="stylesheet">
         <link href="vendors/owl-carousel/assets/owl.carousel.min.css" rel="stylesheet">
         <link href="vendors/magnific-popup/magnific-popup.css" rel="stylesheet">
         <link rel="stylesheet" href="vendors/flexslider/flex-slider.css">
         <link href="css/spinner.css" rel="stylesheet">
-        
+        <link href="css/foreseeMenu.css" rel="stylesheet">
+        <link href="css/dropDownMenu.css" rel="stylesheet">
+
         <link href="css/style.css" rel="stylesheet">
         <link href="css/responsive.css" rel="stylesheet">
 
@@ -45,8 +47,8 @@
 
     </head>
     <body data-spy="scroll" data-target="#bs-example-navbar-collapse-1" data-offset="90">
-       
-       
+
+
        <div id="preloader">
             <div id="preloader_spinner">
 				<div class="pre_inner">
@@ -56,9 +58,9 @@
 				</div>
             </div>
         </div>
-       
+
         <div class="body-padding">
-          
+
 			<!--================Side Navigation Area =================-->
         <div class="offcanvas_menu">
             <div class="close_icon">
@@ -68,6 +70,7 @@
                 <ul class="nav flex-column">
                     <li class="active"><a href="index.html">Home</a></li>
                     <li><a href="#how">How it work?</a></li>
+                    <li><a href="#foreseeMatch">Foresee a match</a></li>
                     <li><a href="#team">Team</a></li>
                 </ul>
                 <div class="social_link">
@@ -79,7 +82,7 @@
             </div>
         </div>
         <!--================End Side Navigation Area =================-->
-			                      
+
             <!--====================Header Menu Area====================-->
             <header class="mobile_menu_inner">
             	<div class="pull-left">
@@ -100,7 +103,7 @@
             	</div>
             </header>
             <!--====================Header Menu Area====================-->
-            
+
             <!--====================Header Banner Area====================-->
             <section class="header_banner_area">
             	<div class="container">
@@ -122,50 +125,7 @@
             	</div>
             </section>
             <!--====================End Header Banner Area====================-->
-            
-            <!--====================Loading and Player Banner Area====================-->
 
-            <section class="h_work_area" id="how">
-                <div class="container">
-                    <div class="main_title">
-                        <h2><span id="Player_Name"></span></h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim.</p>
-                    </div>
-                    <div class="row h_work_inner">
-                        <div class="col-sm-4 col-xs-6">
-                            <div class="h_work_item">
-                                <div class="h-round">
-                                    <i class="icofont icofont-chart-line"></i>
-                                </div>
-                                <h3 class="h-title">Clean Layout</h3>
-                                <p class="text-p">There are many variations of passages of Lorem Ipsum available, but the majority.</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-xs-6">
-                            <div class="h_work_item">
-                                <div class="h-round">
-                                    <i class="icofont icofont-chart-line"></i>
-                                </div>
-                                <h3 class="h-title">Clean Layout</h3>
-                                <p class="text-p">There are many variations of passages of Lorem Ipsum available, but the majority.</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-xs-6">
-                            <div class="h_work_item">
-                                <div class="h-round">
-                                    <i class="icofont icofont-chart-line"></i>
-                                </div>
-                                <h3 class="h-title">Clean Layout</h3>
-                                <p class="text-p">There are many variations of passages of Lorem Ipsum available, but the majority.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- this will show our spinner -->
-            <div hidden id="spinner"></div>
-
-            <!--====================End Loading and Player Banner Area====================-->
 
             <!--==================== h_work_area ====================-->
             <section class="h_work_area" id="how">
@@ -206,8 +166,60 @@
                 </div>
             </section>
             <!--==================== h_work_area ====================-->
-           
 
+
+            <!--==================== foreseeMatch area ====================-->
+            <section class="h_work_area" id="foreseeMatch">
+                <div class="container">
+                    <div class="main_title">
+                        <h2>FORESEE A <span>MATCH !</span></h2>
+                    </div>
+                      <nav class="dropDownMenu" id="dD1">
+                        <ul>
+                          <div> First Player: </div>
+                          <li class="check">
+                            <button class="buttonMenu" id="chosen_player_1">First Player</button>
+                            <ul id="list_player_1">
+                            </ul>
+                          </li>
+                        </ul>
+                      </nav>
+
+                      <nav class="dropDownMenu" id="dD2">
+                        <ul>
+                          <div> Hero of the first Player: </div>
+                          <li class="check">
+                            <button class="buttonMenu" id="chosen_hero_player_1">Hero of the first Player</button>
+                            <ul id="list_hero_player_1">
+                            </ul>
+                          </li>
+                        </ul>
+                      </nav>
+
+                      <nav class="dropDownMenu" id="dD3">
+                        <ul>
+                          <div> Second Player: </div>
+                          <li class="check">
+                            <button class="buttonMenu" id="chosen_player_2">Second Player</button>
+                            <ul id="list_player_2">
+                            </ul>
+                          </li>
+                        </ul>
+                      </nav>
+
+                      <nav class="dropDownMenu" id="dD4">
+                        <ul>
+                          <div> Hero of the second Player: </div>
+                          <li class="check">
+                            <button class="buttonMenu" id="chosen_hero_player_2">Hero of the second Player</button>
+                            <ul id="list_hero_player_2">
+                            </ul>
+                          </li>
+                        </ul>
+                      </nav>
+                </div>
+            </section>
+            <!--==================== foreseeMatch area ====================-->
 
 
             <!--==================== team_area-three ====================-->
@@ -258,7 +270,7 @@
                 </div>
             </section>
             <!--==================== team_area-three ====================-->
-            
+
             <!--====================Footer Area ====================-->
             <footer class="footer_three_area">
             	<div class="container">
@@ -368,9 +380,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         <!--gmaps Js-->
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
         <script src="js/gmaps.min.js"></script>
-        
+
         <script src="js/theme.js"></script>
         <script src="js/spinner.js"></script>
+
+        <script src="js/prova.js"></script>
 
     </body>
 </html>

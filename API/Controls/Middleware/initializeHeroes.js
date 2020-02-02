@@ -1,6 +1,6 @@
-hero = require('../../Models/Hero')
+const hero = require('../../Models/Hero')
 
-getRequestTo = require('./getRequestTo');
+const getRequestTo = require('./getRequestTo');
 
 
 exports.initializeHeroes = async function(){
