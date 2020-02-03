@@ -129,7 +129,7 @@ function createMatch(index, indexMatch, match, matches) {
 
 function loadMatches(index, name, slug, game) {
     let url = "http://localhost:3000/playerFinder/event?name=" + name + "&slug=" + slug + "&game=" + game
-    console.log("Firo pure questo")
+    var button = document.getElementById('brackets' + index)
     fetch(url, { mode: 'cors' }).then(response => response.json())
         .then(data => {
             if (data.success === false) {
@@ -138,10 +138,11 @@ function loadMatches(index, name, slug, game) {
                 if(new_event != null && new_event != ""){
                     loadMatches(index, name, new_event, game)
                 }
-
+                button.disabled = true
             }
             else {
                 console.log(data)
+                button.disabled = true
                 createMatchViews(index, data)
             }
         })
@@ -149,22 +150,20 @@ function loadMatches(index, name, slug, game) {
 
 function searchMatch(index_event, index_match, eventname, fullRoundText, displayName, game) {
     let url = "http://localhost:3000/playerFinder/match?tourney=" + eventname + "&phase=" + fullRoundText + "&displayScore=" + displayName + "&game=" + game
+    var button = document.getElementById('match' + index_match)
 
-    console.log(url)
-
-    console.log("MAZZ O CU")
     fetch(url, { mode: 'cors' }).then(response => response.json())
         .then(data => {
             if (data.success === false) {
                 console.log(data)
                 alert("I can't find a video for this match!")
-
-
+                button.disabled = true
             }
             else {
                 console.log(data)
                 alert("FOUND IT! link: " + data.data.link)
                 window.open(data.data.link);
+                button.disabled = true
             }
         })
 }
