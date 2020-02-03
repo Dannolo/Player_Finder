@@ -10,7 +10,7 @@ exports.chooseMatch = function (videos, match) {
     for (let i = 0; i<3;i++) {
       let title = videos[i].snippet.title
       var similarity = stringSimilarity.compareTwoStrings(title, match)
-      if(similarity > 0.65 && _similarity < similarity){
+      if(similarity > 0.55 && _similarity < similarity){
         _id = videos[i].id.videoId
         _similarity = similarity
       }
