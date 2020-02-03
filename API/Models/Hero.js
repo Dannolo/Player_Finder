@@ -7,4 +7,5 @@ module.exports = function(id, name){
   this.pro_pick = 0;
   this.top_pick = 0;
   this.top_win = 0;
+  this.img = "";
 }

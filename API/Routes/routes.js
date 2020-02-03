@@ -124,7 +124,9 @@ module.exports = function (app) {
                     "hero_1" : actualHero_1,
                     "hero_2" : actualHero_2,
                     "hero_1_points" : heroesPoints[0],
-                    "hero_2_points" : heroesPoints[1]
+                    "hero_2_points" : heroesPoints[1],
+                    "hero_1_percentage" : heroesPoints[2],
+                    "hero_2_percentage" : heroesPoints[3]
                   });
 
         } catch (error) {

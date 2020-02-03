@@ -96,15 +96,26 @@ $('#buttonForesee').click(function() {
   else {
 
     var results = document.getElementById('results')
+    var hero_results = document.getElementById('hero_results')
 
     //Obtainin informations and creating the table
     url = 'http://localhost:3000/foreseeMatch?player_1=' + $('#chosen_player_1')[0].innerText + "&hero_1=" + $('#chosen_hero_player_1')[0].innerText + "&player_2=" + $('#chosen_player_2')[0].innerText + "&hero_2=" + $('#chosen_hero_player_2')[0].innerText;
     fetch(url, {mode: 'cors'}).then(response => response.json())
       .then(data => {
+
+        while(results.firstChild)
+          results.removeChild(results.firstChild)
+
+        while(hero_results.firstChild)
+          hero_results.removeChild(hero_results.firstChild)
+
+
+        // ===== Table of Players =====
+
+        //Firts Row
         newLine = document.createElement('tr')
         newLine.classList.add("w3-red")
 
-        //Firts Row
         element1_1 = document.createElement('td')
         element1_1.appendChild(document.createTextNode("Informations"))
         element1_2 = document.createElement('td');
@@ -227,7 +238,7 @@ $('#buttonForesee').click(function() {
         percentage.classList.add("w3-orange")
 
         percentage1_1 = document.createElement('td')
-        percentage1_1.appendChild(document.createTextNode("Percentage of winnig: "))
+        percentage1_1.appendChild(document.createTextNode("Percentage of winning: "))
         percentage1_2 = document.createElement('td');
         percentage1_2.appendChild(document.createTextNode(data.player_1_percentage + "%"));
         percentage1_3 = document.createElement('td');
@@ -238,7 +249,160 @@ $('#buttonForesee').click(function() {
         percentage.appendChild(percentage1_2);
         percentage.appendChild(percentage1_3);
 
+        // ===== Table of heroes =====
+
+        //First Row
+        informations = document.createElement('tr')
+        informations.classList.add("w3-red")
+
+        informations1_1 = document.createElement('td')
+        informations1_1.appendChild(document.createTextNode("Informations"))
+        informations1_2 = document.createElement('td');
+        informations1_2.appendChild(document.createTextNode(data.hero_1.name));
+        informations1_3 = document.createElement('td');
+        informations1_3.appendChild(document.createTextNode(data.hero_2.name));
+
+        hero_results.appendChild(informations);
+        informations.appendChild(informations1_1);
+        informations.appendChild(informations1_2);
+        informations.appendChild(informations1_3);
+
+        //Roles
+        roles = document.createElement('tr')
+
+        roles1_1 = document.createElement('td')
+        roles1_1.appendChild(document.createTextNode("Roles"))
+
+        hero_1_roles = concatenateRoles(data.hero_1)
+        roles1_2 = document.createElement('td');
+        roles1_2.appendChild(document.createTextNode(hero_1_roles));
+
+        hero_2_roles = concatenateRoles(data.hero_2)
+        roles1_3 = document.createElement('td');
+        roles1_3.appendChild(document.createTextNode(hero_2_roles));
+
+        hero_results.appendChild(roles);
+        roles.appendChild(roles1_1);
+        roles.appendChild(roles1_2);
+        roles.appendChild(roles1_3);
+
+        //Percentage of times this hero was banned in pro matches
+        n_ofBans = document.createElement('tr')
+
+        n_ofBans1_1 = document.createElement('td')
+        n_ofBans1_1.appendChild(document.createTextNode("Percentage of bans in pro matches"))
+        n_ofBans1_2 = document.createElement('td');
+        n_ofBans1_2.appendChild(document.createTextNode(data.hero_1.pro_ban + "%"));
+        n_ofBans1_3 = document.createElement('td');
+        n_ofBans1_3.appendChild(document.createTextNode(data.hero_2.pro_ban + "%"));
+
+        hero_results.appendChild(n_ofBans);
+        n_ofBans.appendChild(n_ofBans1_1);
+        n_ofBans.appendChild(n_ofBans1_2);
+        n_ofBans.appendChild(n_ofBans1_3);
+
+        //Percentage of times this hero wins when used in pro matches
+        n_ofWins = document.createElement('tr')
+
+        n_ofWins1_1 = document.createElement('td')
+        n_ofWins1_1.appendChild(document.createTextNode("Percentage of wins in pro matches"))
+        n_ofWins1_2 = document.createElement('td');
+        n_ofWins1_2.appendChild(document.createTextNode(data.hero_1.pro_win + "%"));
+        n_ofWins1_3 = document.createElement('td');
+        n_ofWins1_3.appendChild(document.createTextNode(data.hero_2.pro_win + "%"));
+
+        hero_results.appendChild(n_ofWins);
+        n_ofWins.appendChild(n_ofWins1_1);
+        n_ofWins.appendChild(n_ofWins1_2);
+        n_ofWins.appendChild(n_ofWins1_3);
+
+        //Percentage of times this hero get picked in pro matches
+        n_ofPick = document.createElement('tr')
+
+        n_ofPick1_1 = document.createElement('td')
+        n_ofPick1_1.appendChild(document.createTextNode("Percentage of pick in pro matches"))
+        n_ofPick1_2 = document.createElement('td');
+        n_ofPick1_2.appendChild(document.createTextNode(data.hero_1.pro_pick + "%"));
+        n_ofPick1_3 = document.createElement('td');
+        n_ofPick1_3.appendChild(document.createTextNode(data.hero_2.pro_pick + "%"));
+
+        hero_results.appendChild(n_ofPick);
+        n_ofPick.appendChild(n_ofPick1_1);
+        n_ofPick.appendChild(n_ofPick1_2);
+        n_ofPick.appendChild(n_ofPick1_3);
+
+        //Number of times this hero wins when used in pro matches
+        n_ofTopWin = document.createElement('tr')
+
+        n_ofTopWin1_1 = document.createElement('td')
+        n_ofTopWin1_1.appendChild(document.createTextNode("Number of wins in top matches"))
+        n_ofTopWin1_2 = document.createElement('td');
+        n_ofTopWin1_2.appendChild(document.createTextNode(data.hero_1.top_win));
+        n_ofTopWin1_3 = document.createElement('td');
+        n_ofTopWin1_3.appendChild(document.createTextNode(data.hero_2.top_win));
+
+        hero_results.appendChild(n_ofTopWin);
+        n_ofTopWin.appendChild(n_ofTopWin1_1);
+        n_ofTopWin.appendChild(n_ofTopWin1_2);
+        n_ofTopWin.appendChild(n_ofTopWin1_3);
+
+        //Number of times this hero get picked in pro matches
+        n_ofTopPick = document.createElement('tr')
+
+        n_ofTopPick1_1 = document.createElement('td')
+        n_ofTopPick1_1.appendChild(document.createTextNode("Number of pick in top matches"))
+        n_ofTopPick1_2 = document.createElement('td');
+        n_ofTopPick1_2.appendChild(document.createTextNode(data.hero_1.top_pick));
+        n_ofTopPick1_3 = document.createElement('td');
+        n_ofTopPick1_3.appendChild(document.createTextNode(data.hero_2.top_pick));
+
+        hero_results.appendChild(n_ofTopPick);
+        n_ofTopPick.appendChild(n_ofTopPick1_1);
+        n_ofTopPick.appendChild(n_ofTopPick1_2);
+        n_ofTopPick.appendChild(n_ofTopPick1_3);
+
+        //Total score of heroes
+        hero_score = document.createElement('tr')
+
+        hero_score1_1 = document.createElement('td')
+        hero_score1_1.appendChild(document.createTextNode("Total score"))
+        hero_score1_2 = document.createElement('td');
+        hero_score1_2.appendChild(document.createTextNode(data.hero_1_points));
+        hero_score1_3 = document.createElement('td');
+        hero_score1_3.appendChild(document.createTextNode(data.hero_2_points));
+
+        hero_results.appendChild(hero_score);
+        hero_score.appendChild(hero_score1_1);
+        hero_score.appendChild(hero_score1_2);
+        hero_score.appendChild(hero_score1_3);
+
+        //Total percentage of heroes
+        hero_percentage = document.createElement('tr')
+        hero_percentage.classList.add("w3-orange")
+
+        hero_percentage1_1 = document.createElement('td')
+        hero_percentage1_1.appendChild(document.createTextNode("Percentage of winning"))
+        hero_percentage1_2 = document.createElement('td');
+        hero_percentage1_2.appendChild(document.createTextNode(data.hero_1_percentage + "%"));
+        hero_percentage1_3 = document.createElement('td');
+        hero_percentage1_3.appendChild(document.createTextNode(data.hero_2_percentage + "%"));
+
+        hero_results.appendChild(hero_percentage);
+        hero_percentage.appendChild(hero_percentage1_1);
+        hero_percentage.appendChild(hero_percentage1_2);
+        hero_percentage.appendChild(hero_percentage1_3);
 
       })
   }
 })
+
+function concatenateRoles(hero){
+  var temp = "";
+  for (var i = 0; i < hero.roles.length; i++) {
+    temp = temp + hero.roles[i]
+    if(i !== hero.roleslength - 1)
+      temp = temp + ", "
+  }
+
+  return temp;
+}

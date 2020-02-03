@@ -24,6 +24,7 @@ exports.initializeHeroes = async function(){
     allHeroes[i].pro_pick = parsed_data[i].pro_pick;
     allHeroes[i].top_pick = parsed_data[i]["7_pick"];
     allHeroes[i].top_win = parsed_data[i]["7_win"];
+    allHeroes[i].img = parsed_data[i].img;
   }
 
   return allHeroes;
