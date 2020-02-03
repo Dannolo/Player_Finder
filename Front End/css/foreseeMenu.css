@@ -46,3 +46,6 @@
 #foreseeMenu ul ul li a:hover {
 	background-color: #3F3F3F;
 }
+
+table {margin-top : 50px; width : 100%}
+tr {margin-top : 5px; margin bottom : 5px}

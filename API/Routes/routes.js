@@ -18,6 +18,7 @@ module.exports = function (app) {
     const initializeHeroes = require('../Controls/Middleware/initializeHeroes');
     const getCompleteInfo = require('../Controls/Middleware/getCompleteInfo');
     const comparePlayers = require('../Controls/BusinessLogic/comparePlayers');
+    const compareHeroes = require('../Controls/BusinessLogic/compareHeroes');
 
     let proPlayers = new Array();
     let allHeroes = new Array();
@@ -111,12 +112,19 @@ module.exports = function (app) {
           player_2 = await getCompleteInfo.getCompleteInfo(player_2, actualHero_2, actualHero_1);
 
           let playersPoints = await comparePlayers.comparePlayers(player_1, player_2);
+          let heroesPoints = await compareHeroes.compareHeroes(actualHero_1, actualHero_2);
 
           res.json({
                     "player_1" : player_1,
                     "player_2" : player_2,
                     "player_1_points" : playersPoints[0],
-                    "player_2_points" : playersPoints[1]
+                    "player_2_points" : playersPoints[1],
+                    "player_1_percentage" : playersPoints[2],
+                    "player_2_percentage" : playersPoints[3],
+                    "hero_1" : actualHero_1,
+                    "hero_2" : actualHero_2,
+                    "hero_1_points" : heroesPoints[0],
+                    "hero_2_points" : heroesPoints[1]
                   });
 
         } catch (error) {

@@ -2,7 +2,7 @@ playerHero = require('../../Models/PlayerHero')
 
 exports.comparePlayers = async function(player_1, player_2){
 
-    let points = [0, 0];
+    let points = [0, 0, 0, 0];
 
     points[0] += calcWinRate(player_1);
     points[0] += calcNumberGames(player_1);
@@ -14,7 +14,12 @@ exports.comparePlayers = async function(player_1, player_2){
     points[1] += calcUsedHero(player_2);
     points[1] += calcAgainstHero(player_2);
 
-    console.log(points);
+    points[2] = calcPercentage(parseFloat(points[0]), parseFloat(points[1]))
+    points[3] = calcPercentage(parseFloat(points[1]), parseFloat(points[0]))
+
+    points[0] = points[0].toFixed(2);
+    points[1] = points[1].toFixed(2);
+
     return points;
 
 }
@@ -41,4 +46,14 @@ function calcAgainstHero(player){
     return 0
 
   return (((player.againstHero.against_win/player.againstHero.against_games)-0.50)*100)+(player.againstHero.against_games / 100);
+}
+
+function calcPercentage(a, b){
+  if(a <= 0)
+    return 0.01;
+
+  if(b <= 0)
+    return 99.99
+
+  return ((a*100)/(a+b)).toFixed(2);
 }
