@@ -1,3 +1,4 @@
+//Auxiliary function to automatically request and parse data
 exports.getRequestTo = async function(url){
   return new Promise((resolve, reject) => {
     var request = require('request');

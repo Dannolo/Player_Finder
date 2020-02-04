@@ -1,6 +1,8 @@
 let proPlayers = null;
 let allHeroes = null;
 
+//When page loads, get all informations needed
+//Create all needed buttons with respective functions
 let url = "http://localhost:3000/proPlayers"
 fetch(url, {mode: 'cors'}).then(response => response.json())
   .then(data => {
@@ -84,7 +86,7 @@ for (var i = 0; i < nav.length; i++) {
   });
 }
 
-
+//Function needed to create the two tables showing al the statistics
 $('#buttonForesee').click(function() {
   if($('#chosen_player_1')[0].innerText === 'Firts Player ▼' ||
      $('#chosen_player_2')[0].innerText === 'Second Player ▼' ||
@@ -103,6 +105,7 @@ $('#buttonForesee').click(function() {
     fetch(url, {mode: 'cors'}).then(response => response.json())
       .then(data => {
 
+        //Restart the tables
         while(results.firstChild)
           results.removeChild(results.firstChild)
 
@@ -112,6 +115,12 @@ $('#buttonForesee').click(function() {
 
         // ===== Table of Players =====
 
+        //modifying descriptions
+        description_1 = document.getElementById('tableDescription_1')
+        description_2 = document.getElementById('tableDescription_2')
+
+        description_1.innerHTML = "Pro-Players Comparison: "
+        description_2.innerHTML = "Heroes Comparison (Based on the actual meta): "
         //Firts Row
         newLine = document.createElement('tr')
         newLine.classList.add("w3-red")
@@ -266,6 +275,28 @@ $('#buttonForesee').click(function() {
         informations.appendChild(informations1_1);
         informations.appendChild(informations1_2);
         informations.appendChild(informations1_3);
+
+        //Images
+        img = document.createElement('tr')
+
+        img1_1 = document.createElement('td')
+        img1_1.appendChild(document.createTextNode("Image"))
+
+
+        img1_2 = document.createElement('td');
+        actualImage_1 = document.createElement('img');
+        actualImage_1.src = data.hero_1.img
+        img1_2.appendChild(actualImage_1);
+
+        img1_3 = document.createElement('td')
+        actualImage_2 = document.createElement('img');
+        actualImage_2.src = data.hero_2.img
+        img1_3.appendChild(actualImage_2);
+
+        hero_results.appendChild(img);
+        img.appendChild(img1_1);
+        img.appendChild(img1_2);
+        img.appendChild(img1_3);
 
         //Roles
         roles = document.createElement('tr')

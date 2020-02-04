@@ -1,7 +1,10 @@
 hero = require('../../Models/Hero')
 
+//Function used to compare two heroes
+//It will do the math in order to obtain a final score
 exports.compareHeroes = async function(hero_1, hero_2){
 
+  //Potitions 0 and 2 are for hero_1; positions 1 and 3 are for hero_2
   let points = [0, 0, 0, 0];
 
   for (var i = 0; i < hero_1.roles.length; i++) {
@@ -34,6 +37,7 @@ exports.compareHeroes = async function(hero_1, hero_2){
 
 }
 
+//Auxiliary function
 function calcPercentage(a, b){
   if(a <= 0)
     return 0.01;

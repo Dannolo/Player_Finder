@@ -1,7 +1,10 @@
 playerHero = require('../../Models/PlayerHero')
 
+//Function used to compare two pro-players
+//It will do the math in order to obtain a final score
 exports.comparePlayers = async function(player_1, player_2){
 
+    //Potitions 0 and 2 are for hero_1; positions 1 and 3 are for hero_2
     let points = [0, 0, 0, 0];
 
     points[0] += calcWinRate(player_1);
@@ -23,6 +26,8 @@ exports.comparePlayers = async function(player_1, player_2){
     return points;
 
 }
+
+// ==== Many auxiliary functions ====
 
 function calcWinRate(player){
   return (player.winrate - 0.50)*100;

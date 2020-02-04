@@ -1,3 +1,4 @@
+//Hero (used or against the specific player) model
 module.exports = function(hero_id, games, win, against_games, against_win){
   this.hero_id = hero_id,
   this.games = games,

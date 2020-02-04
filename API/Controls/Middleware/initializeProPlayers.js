@@ -2,7 +2,8 @@ const proPlayer = require('../../Models/ProPlayer')
 
 const getRequestTo = require('./getRequestTo');
 
-
+//Function used to initialize all the pro-players! Usefull if used when the web page is loading
+// REMEMBER: this function does not fill up all the fileds!
 exports.initializeProPlayers = async function(){
   let data = await getRequestTo.getRequestTo('http://api.opendota.com/api/proPlayers');
   let parsed_data = JSON.parse(data);

@@ -58,7 +58,7 @@ module.exports = function (app) {
         }
         )
 
-    //Lista dei pro player
+    //ONLY FOR TESTING
     app.route('/proPlayers')
       .get(async function(req, res){
         try {
@@ -71,7 +71,7 @@ module.exports = function (app) {
         }
       });
 
-    //Lista degli eroi
+    //ONLY FOR TESTING
     app.route('/heroes')
       .get(async function(req, res){
         try{
@@ -84,36 +84,38 @@ module.exports = function (app) {
         }
       });
 
-    //Ottenimento varie info player: winrate, ...
+    //Resource for the "Foresee the Match" API
     app.route('/foreseeMatch')
       .get(async function(req, res){
         try{
 
-          //Ottieni giocatori pro se non ci sono ancora
+          //if players are not initialized yet, initialize them
           if(proPlayers.length === 0){
             proPlayers = await initializeProPlayers.initializeProPlayers();
           }
 
-          //Ottieni gli eroi se non ci sono ancora
+          //if heroes are not initialized yet, initialize them
           if(allHeroes.length === 0){
             allHeroes = await initializeHeroes.initializeHeroes();
           }
 
-          //Variabili di supporto
+          //auxiliary variables
           var player_1 = proPlayers.find(o => o.name === req.query.player_1);
           var actualHero_1 = allHeroes.find(o => o.name === req.query.hero_1);
           var player_2 = proPlayers.find(o => o.name === req.query.player_2);
           var actualHero_2 = allHeroes.find(o => o.name === req.query.hero_2);
 
-          //Raccolta dati player_1
+          //Getting informations about player_1
           player_1 = await getCompleteInfo.getCompleteInfo(player_1, actualHero_1, actualHero_2);
 
-          //Raccolta dati player_2
+          //Getting informations about player_2
           player_2 = await getCompleteInfo.getCompleteInfo(player_2, actualHero_2, actualHero_1);
 
+          //Getting informations about the comparison
           let playersPoints = await comparePlayers.comparePlayers(player_1, player_2);
           let heroesPoints = await compareHeroes.compareHeroes(actualHero_1, actualHero_2);
 
+          //Send back all the informations
           res.json({
                     "player_1" : player_1,
                     "player_2" : player_2,
