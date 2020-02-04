@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 
+// Schema for our only important resource to be cached
+
 var eventSchema = mongoose.Schema({
     name: String,
     slug: String,

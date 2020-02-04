@@ -3,6 +3,7 @@
 const stringSimilarity = require('string-similarity');
 
 //Switching the video we have from the Youtube API to get the one that matches better with StringSimilarity
+//We will a video that has ATLEAST stringsimilarity of 0.55
 exports.chooseMatch = function (videos, match) {
   try {
     let _id = null

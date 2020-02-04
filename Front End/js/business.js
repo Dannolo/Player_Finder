@@ -72,13 +72,39 @@ function createMatchViews(index, data) {
         createMatch(index, _index, data.data.matches[_index], header)
     }
 
-    var divider = document.createElement('div')
-    divider.classList.add("row")
-    divider.classList.add("blue")
+    
+    // Creating the header after all the rows of matches
+
+    var header_events = document.createElement('div')
+    header_events.classList.add("row")
+    header_events.classList.add("header")
+
+    var event = document.createElement('div')
+    event.classList.add("cell")
+    var slugheader = document.createElement('div')
+    slugheader.classList.add("cell")
+    var placeheader = document.createElement('div')
+    placeheader.classList.add("cell")
+    var gameheader = document.createElement('div')
+    gameheader.classList.add("cell")
+    var characterheader = document.createElement('div')
+    characterheader.classList.add("cell")
+
+    event.appendChild(document.createTextNode("Event"))
+    slugheader.appendChild(document.createTextNode("Slug"))
+    placeheader.appendChild(document.createTextNode("Place"))
+    gameheader.appendChild(document.createTextNode("Game"))
+    characterheader.appendChild(document.createTextNode("Character"))
+
+    header_events.appendChild(event)
+    header_events.appendChild(slugheader)
+    header_events.appendChild(placeheader)
+    header_events.appendChild(gameheader)
+    header_events.appendChild(characterheader)
 
     var elementAfter = document.getElementById('event' + (index + 1))
 
-    elementAfter.parentNode.insertBefore(divider, elementAfter);
+    elementAfter.parentNode.insertBefore(header_events, elementAfter);
 
 }
 
@@ -93,27 +119,22 @@ function createMatch(index, indexMatch, match, matches) {
     var eventname = document.createElement('div')
     eventname.classList.add("cell")
     eventname.setAttribute("id", "eventname" + index + indexMatch)
-    eventname.classList.add("fill_all")
 
     var displayName = document.createElement('div')
     displayName.classList.add("cell")
     displayName.setAttribute("id", "displayName" + index + indexMatch)
-    displayName.classList.add("fill_all")
 
     var fullRoundText = document.createElement('div')
     fullRoundText.classList.add("cell")
     fullRoundText.setAttribute("id", "fullRoundText" + index + indexMatch)
-    fullRoundText.classList.add("fill_all")
 
     var game = document.createElement('div')
     game.classList.add("cell")
     game.setAttribute("id", "game" + index + indexMatch)
-    game.classList.add("fill_all")
 
     var character = document.createElement('div')
     character.classList.add("cell")
     character.setAttribute("id", "character" + index + indexMatch)
-    character.classList.add("fill_all")
 
     var buttonContainer = document.createElement('div')
     buttonContainer.classList.add("cell")
@@ -145,7 +166,6 @@ function createMatch(index, indexMatch, match, matches) {
     container.appendChild(button)
 
     insertAfter(container, matches)
-
 }
 
 // Create the main list of events 
@@ -258,10 +278,11 @@ $("#find").click(function (e) {
         .then(data => {
             if (data.success == true) {
 
-                var elem = document.getElementById('events')
+                var elem = document.getElementById('events_table')
 
                 if (elem != null) {
-                    elem.parentNode.removeChild(elem)
+                    $(".table").remove()
+                    $(document).off( "click", "**" )
                 }
 
                 document.getElementById("playerInformation").removeAttribute("hidden")
@@ -276,7 +297,8 @@ $("#find").click(function (e) {
                 var elem = document.getElementById('events')
 
                 if (elem != null) {
-                    elem.parentNode.removeChild(elem)
+                    $(".table").remove()
+                    $(document).off( "click", "**" )
                 }
 
                 document.getElementById("playerInformation").removeAttribute("hidden")

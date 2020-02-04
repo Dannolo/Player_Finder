@@ -30,6 +30,9 @@ function Event(tournament) {
     this.matches = []
 }
 
+
+// Will be implemented in future, trying to find the tournament slug before inserting it using stringsimilarity on a list of all tournaments of Smash.gg. Needs some hard work
+
 function checkName(name, list){
     let similarity = 0
     let slug = name

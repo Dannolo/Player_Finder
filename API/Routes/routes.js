@@ -4,8 +4,13 @@ module.exports = function (app) {
 
     const getPlayer = require("../Controls/Middleware/GetPlayer")
     var getYoutube = require('../Controls/Middleware/GetYoutube').MatchSelector
-
     let findDocument = require("../DB/findDocument").findDocuments
+
+////////////////////////////////////
+
+// Auxiliary functions //
+
+///////////////////////////////////
 
     function validateName(name) {
         for (let index = 0; index < name.length; index++) {
@@ -46,7 +51,7 @@ module.exports = function (app) {
                 res.json({
                     "success": false,
                     "message": "No player with this name has been found, please be sure to have typed it right.",
-                    "error": "400",
+                    "error": "404",
                     "data": {}
                 })
             }
@@ -93,7 +98,7 @@ module.exports = function (app) {
                     res.json({
                         "success": false,
                         "message": "No matches for that event found.",
-                        "error": "400",
+                        "error": "404",
                         "data": {}
                     })
                 }
@@ -127,7 +132,7 @@ module.exports = function (app) {
                 res.json({
                     "success": false,
                     "message": "No video for that match found.",
-                    "error": "400",
+                    "error": "404",
                     "data": {
                         "link": null
                     }

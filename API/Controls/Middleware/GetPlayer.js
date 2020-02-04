@@ -7,19 +7,8 @@ const smashgg = require('smashgg.js')
 const { Event } = smashgg;
 const Tournament = smashgg.Tournament
 const { MongoClient } = require('mongodb')
-
-
 let insertDocuments = require("../../DB/insertDocument").insertDocuments
 
-async function addSets(name, slug, game, set) {
-    const uri = "mongodb://davideSchmidt:playerfinder@playerfinder-shard-00-00-umz1y.mongodb.net:27017,playerfinder-shard-00-01-umz1y.mongodb.net:27017,playerfinder-shard-00-02-umz1y.mongodb.net:27017/test?ssl=true&replicaSet=PlayerFinder-shard-0&authSource=admin&retryWrites=true&w=majority";
-
-    MongoClient.connect(uri, function (err, client) {
-        console.log("Connected successfully to server")
-
-        insertDocuments(name, slug, game, set)
-    })
-}
 
 
 //AuthS Key
@@ -51,6 +40,22 @@ function divide(displayName) {
     }
   }
   return names
+}
+
+////////////////////////////////////
+
+// DB CALL FOR CACHING //
+
+///////////////////////////////////
+
+async function addSets(name, slug, game, set) {
+  const uri = "mongodb://davideSchmidt:playerfinder@playerfinder-shard-00-00-umz1y.mongodb.net:27017,playerfinder-shard-00-01-umz1y.mongodb.net:27017,playerfinder-shard-00-02-umz1y.mongodb.net:27017/test?ssl=true&replicaSet=PlayerFinder-shard-0&authSource=admin&retryWrites=true&w=majority";
+
+  MongoClient.connect(uri, function (err, client) {
+      console.log("Connected successfully to server")
+
+      insertDocuments(name, slug, game, set)
+  })
 }
 
 ////////////////////////////////////

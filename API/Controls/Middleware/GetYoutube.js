@@ -1,9 +1,16 @@
+// Constant methods
+
 var YouTube = require('youtube-node');
 const chooseMatch = require('./GetMatch').chooseMatch
 
-
 var youTube = new YouTube();
 youTube.setKey('AIzaSyDou1E_cc5N4KbPhDlp6Y1I3hxyx2-ZBhM');
+
+////////////////////////////////////
+
+// Auxiliary functions //
+
+///////////////////////////////////
 
 function validateName(name) {
   for (let index = 0; index < name.length; index++) {
@@ -26,6 +33,8 @@ function divide(displayName) {
   }
   return displayName
 }
+
+// Main function, we fetch to url for Youtube and we analyze what we get back to see if it allowed to be posted
 
 exports.MatchSelector = async function (tourney, game, phase, displayScore) {
   

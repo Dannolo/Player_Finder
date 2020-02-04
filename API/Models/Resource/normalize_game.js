@@ -1,3 +1,5 @@
+// Standardisation of the data taken from Shoryuken so we can work with them in Smash.gg 
+
 exports.normalize_game = function normalize_game(game){
   switch(game){
       case "SF5":

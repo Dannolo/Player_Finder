@@ -7,11 +7,7 @@ var mongoose = require("mongoose")
 
 const port = process.env.PORT || 3000
 
-//Declaring a parser for request
 const bodyParser = require('body-parser')
-
-const { MongoClient } = require('mongodb');
-const Event = require("./API/DB/eventSchema").Event
 
 var uristring =
   process.env.MONGOLAB_URI ||
@@ -26,7 +22,7 @@ app.use('*', function (req, res, next) {
   next();
 });
 
-//enable pre-flight
+//enable CORS pre-flight 
 app.options('*', cors());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
@@ -40,6 +36,7 @@ app.use(function (req, res) {
 
 app.listen(port)
 
+//Be sure that the DB is alive
 mongoose.connect(uristring, function (err, res) {
   if (err) {
     console.log('ERROR connecting')
