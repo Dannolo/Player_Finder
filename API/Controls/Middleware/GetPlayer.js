@@ -3,12 +3,33 @@
 const axios = require('axios').default
 const Player = require('../../Models/player').Player
 const Match = require('../../Models/match').Match
-const smashgg = require('smashgg.js');
+const smashgg = require('smashgg.js')
 const { Event } = smashgg;
 const Tournament = smashgg.Tournament
+const { MongoClient } = require('mongodb')
+
+
+let insertDocuments = require("../../DB/insertDocument").insertDocuments
+
+async function addSets(name, slug, game, set) {
+    const uri = "mongodb://davideSchmidt:playerfinder@playerfinder-shard-00-00-umz1y.mongodb.net:27017,playerfinder-shard-00-01-umz1y.mongodb.net:27017,playerfinder-shard-00-02-umz1y.mongodb.net:27017/test?ssl=true&replicaSet=PlayerFinder-shard-0&authSource=admin&retryWrites=true&w=majority";
+
+    MongoClient.connect(uri, function (err, client) {
+        console.log("Connected successfully to server")
+
+        insertDocuments(name, slug, game, set)
+    })
+}
+
 
 //AuthS Key
 smashgg.initialize('371d53adec5bb1afdc3537835d792c19');
+
+////////////////////////////////////
+
+// Auxiliary functions //
+
+///////////////////////////////////
 
 function validateName(name) {
   for (let index = 0; index < name.length; index++) {
@@ -57,15 +78,16 @@ exports.getPlayerSRK = async function (name) {
 }
 
 //Getting tournament datas from Smash.gg
-exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, name) {
+exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, slug, genre, name) {
   try {
   let playerSets = []
+  let eventSets = []
   let tourney
   let attends
   let attend
 
   try {
-    tourney = await Tournament.get(tournament)
+    tourney = await Tournament.get(slug)
   } catch (error) {
     return res.json({
       "success": false,
@@ -102,6 +124,7 @@ exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, nam
 
           //Cycling on Sets(Every match done in that phase) and taking only where player is
           for (const set of sets) {
+            eventSets.push(set)
             let displayscore = set.displayScore
             let players = []
               players[0] = set.player1.attendeeIds[0]
@@ -119,6 +142,9 @@ exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, nam
       }
     }
   }
+
+  await addSets(tournament, slug, genre, eventSets)
+
   return playerSets
   } catch (error) {
     return res.json({
@@ -164,7 +190,6 @@ exports.getPlayerMatchesSMASHbyDisplayName = async function (tournament, event, 
         }
       }
     }
-    console.log(playerSets)
     return playerSets
 
   } catch (error) {

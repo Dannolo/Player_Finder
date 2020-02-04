@@ -1,22 +1,41 @@
-//Constant variable from HTML document
+//Auxiliary things for the HTML part
 
 const spinner = document.getElementById("spinner");
-
-
-//Player variable for the call
 let player = null
 
 function fade() {
     $("#how").fadeOut("slow");
-};
+}
 
 function insertAfter(newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 
+////////////////////////////////////
+
+// Creating part //
+
+///////////////////////////////////
+
+// Easy button creator 
+
+function createButton(index, id, value, color) {
+
+    var button = document.createElement('button')
+    button.classList.add("btn")
+    button.classList.add("btn-default")
+    button.classList.add(color)
+    button.classList.add(id)
+    button.setAttribute("id", id + index)
+    button.innerText = value
+    return button
+}
+
+// See the matches for that event
+
 function createMatchViews(index, data) {
 
-    var rowEvent = document.getElementById('event'+index)
+    var rowEvent = document.getElementById('event' + index)
 
     var header = document.createElement('div')
     header.classList.add("row")
@@ -57,11 +76,13 @@ function createMatchViews(index, data) {
     divider.classList.add("row")
     divider.classList.add("blue")
 
-    var elementAfter = document.getElementById('event'+(index+1))
+    var elementAfter = document.getElementById('event' + (index + 1))
 
     elementAfter.parentNode.insertBefore(divider, elementAfter);
 
 }
+
+// CreateMatch for that event
 
 function createMatch(index, indexMatch, match, matches) {
 
@@ -73,7 +94,7 @@ function createMatch(index, indexMatch, match, matches) {
     eventname.classList.add("cell")
     eventname.setAttribute("id", "eventname" + index + indexMatch)
     eventname.classList.add("fill_all")
-    
+
     var displayName = document.createElement('div')
     displayName.classList.add("cell")
     displayName.setAttribute("id", "displayName" + index + indexMatch)
@@ -101,10 +122,10 @@ function createMatch(index, indexMatch, match, matches) {
     let button = createButton(indexMatch, "match", "Get video for this match", "blue")
 
     $(document).on('click', '#match' + index + indexMatch, function () {
-        eventname = document.getElementById('eventname'+index+indexMatch).innerText
-        fullRoundText = document.getElementById('fullRoundText' +index+indexMatch).innerText
-        displayName = document.getElementById('displayName' +index+indexMatch).innerText
-        game = document.getElementById('game' +index+indexMatch).innerText
+        eventname = document.getElementById('eventname' + index + indexMatch).innerText
+        fullRoundText = document.getElementById('fullRoundText' + index + indexMatch).innerText
+        displayName = document.getElementById('displayName' + index + indexMatch).innerText
+        game = document.getElementById('game' + index + indexMatch).innerText
 
         searchMatch(index, indexMatch, eventname, fullRoundText, displayName, game)
     })
@@ -127,76 +148,7 @@ function createMatch(index, indexMatch, match, matches) {
 
 }
 
-function loadMatches(index, name, slug, game) {
-    let url = "http://localhost:3000/playerFinder/event?name=" + name + "&slug=" + slug + "&game=" + game
-    var button = document.getElementById('brackets' + index)
-    fetch(url, { mode: 'cors' }).then(response => response.json())
-        .then(data => {
-            if (data.success === false) {
-                console.log(data)
-                var new_event = prompt("I can't find an event, do you have any slug for this event? Enter it here", "https://smash.gg/tournament/slug/ like this, leave if not")
-                if(new_event != null && new_event != ""){
-                    loadMatches(index, name, new_event, game)
-                }
-                button.disabled = true
-            }
-            else {
-                console.log(data)
-                button.disabled = true
-                createMatchViews(index, data)
-            }
-        })
-}
-
-function searchMatch(index_event, index_match, eventname, fullRoundText, displayName, game) {
-    let url = "http://localhost:3000/playerFinder/match?tourney=" + eventname + "&phase=" + fullRoundText + "&displayScore=" + displayName + "&game=" + game
-    var button = document.getElementById('match' + index_match)
-
-    fetch(url, { mode: 'cors' }).then(response => response.json())
-        .then(data => {
-            if (data.success === false) {
-                console.log(data)
-                alert("I can't find a video for this match!")
-                button.disabled = true
-            }
-            else {
-                console.log(data)
-                alert("FOUND IT! link: " + data.data.link)
-                window.open(data.data.link);
-                button.disabled = true
-            }
-        })
-}
-
-function createButton(index, id, value, color) {
-
-    var button = document.createElement('button')
-    button.classList.add("btn")
-    button.classList.add("btn-default")
-    button.classList.add(color)
-    button.classList.add(id)
-    button.setAttribute("id", id + index)
-    button.innerText = value
-    return button
-}
-
-function createPlayer(data) {
-
-    var description = document.getElementById('description')
-    var entry = document.createElement('li')
-    var entry1 = document.createElement('li')
-    var entry2 = document.createElement('li')
-
-    entry.appendChild(document.createTextNode(data.data.player.realname))
-    description.appendChild(entry)
-
-    entry1.appendChild(document.createTextNode(data.data.player.country))
-    description.appendChild(entry1)
-
-    entry2.appendChild(document.createTextNode(data.data.player.team))
-    description.appendChild(entry2)
-
-}
+// Create the main list of events 
 
 function createList(data) {
 
@@ -205,8 +157,6 @@ function createList(data) {
     let playername = document.createElement('div')
     playername.classList.add("table")
     playername.setAttribute("id", "events")
-
-    console.log(events_container)
 
     var header = document.createElement('div')
     header.classList.add("row")
@@ -269,9 +219,10 @@ function createList(data) {
 
         $(document).on('click', '#brackets' + index, function () {
             name = document.getElementById('playername').innerText
+            tournament = document.getElementById('tournament' + index).innerText
             slug = document.getElementById('slug' + index).innerText
             game = document.getElementById('game' + index).innerText
-            loadMatches(index, name, slug, game)
+            loadMatches(index, tournament, name, slug, game)
         })
 
         tournament.appendChild(document.createTextNode(data.data.player.events[index].name))
@@ -290,7 +241,13 @@ function createList(data) {
     }
 }
 
-//Load datas
+////////////////////////////////////
+
+// Fetch Part //
+
+///////////////////////////////////
+
+//Load events for the player when clicking on the SUBMIT button
 $("#find").click(function (e) {
 
     player = document.getElementById('player').value
@@ -303,7 +260,7 @@ $("#find").click(function (e) {
 
                 var elem = document.getElementById('events')
 
-                if(elem != null){
+                if (elem != null) {
                     elem.parentNode.removeChild(elem)
                 }
 
@@ -318,7 +275,7 @@ $("#find").click(function (e) {
 
                 var elem = document.getElementById('events')
 
-                if(elem != null){
+                if (elem != null) {
                     elem.parentNode.removeChild(elem)
                 }
 
@@ -331,3 +288,44 @@ $("#find").click(function (e) {
         })
 })
 
+function searchMatch(index_event, index_match, eventname, fullRoundText, displayName, game) {
+    let url = "http://localhost:3000/playerFinder/match?tourney=" + eventname + "&phase=" + fullRoundText + "&displayScore=" + displayName + "&game=" + game
+    var button = document.getElementById('match' + index_match)
+
+    fetch(url, { mode: 'cors' }).then(response => response.json())
+        .then(data => {
+            if (data.success === false) {
+                console.log(data)
+                alert("I can't find a video for this match!")
+                button.disabled = true
+            }
+            else {
+                console.log(data)
+                alert("FOUND IT! link: " + data.data.link)
+                window.open(data.data.link);
+                button.disabled = true
+            }
+        })
+}
+
+function loadMatches(index, tournament, name, slug, game) {
+    let url = "http://localhost:3000/playerFinder/event?" + "tournament=" + tournament + "&name=" + name + "&slug=" + slug + "&game=" + game
+    console.log(url)
+    var button = document.getElementById('brackets' + index)
+    fetch(url, { mode: 'cors' }).then(response => response.json())
+        .then(data => {
+            if (data.success === false) {
+                console.log(data)
+                var new_event = prompt("I can't find an event, do you have any slug for this event? Enter it here", "https://smash.gg/tournament/slug/ like this, leave if not")
+                if (new_event != null && new_event != "") {
+                    loadMatches(index, tournament, name, new_event, game)
+                }
+                button.disabled = true
+            }
+            else {
+                console.log(data)
+                button.disabled = true
+                createMatchViews(index, data)
+            }
+        })
+}

@@ -2,12 +2,32 @@ module.exports = function (app) {
 
     //Modules
 
-    const axios = require('axios').default
     const getPlayer = require("../Controls/Middleware/GetPlayer")
-    const getTournamentsList = require("../Controls/Middleware/getTournamentList").getTournamentsList
-    const smashgg = require("../../node_modules/smashgg.js")
     var getYoutube = require('../Controls/Middleware/GetYoutube').MatchSelector
-    const Tournament = smashgg.Tournament
+
+    let findDocument = require("../DB/findDocument").findDocuments
+
+    function validateName(name) {
+        for (let index = 0; index < name.length; index++) {
+          if (name[index] == "|") {
+            name = name.substring(index + 1, name.length)
+            return name.trim()
+          } 
+        }
+        return name
+      }
+
+    function divide(displayName) {
+        for (let index = 0; index < displayName.length; index++) {
+          let names = []
+          if (displayName[index] == "-") {
+            names.push(displayName.substring(0, index - 3))
+            names.push(displayName.substring(index + 2, displayName.length - 2))
+            return names
+          }
+        }
+        return names
+      }
 
 
     //Find player's informations and events where he applied
@@ -15,8 +35,6 @@ module.exports = function (app) {
 
     app.route('/playerFinder/player')
         .get(async function (req, res) {
-            // let list = []
-            // list = await getTournamentsList()
             try {
                 let player = await getPlayer.getPlayerSRK(req.query.name)
                 res.json({
@@ -43,23 +61,43 @@ module.exports = function (app) {
     app.route('/playerFinder/event')
         .get(async function (req, res) {
             try {
+                let playerSets = await findDocument(req.query.tournament, req.query.game)
                 let matches = []
-                matches = await getPlayer.getPlayerMatchesSMASHbySmashTag(req.query.slug, req.query.game, req.query.name)
-                res.json({
-                    "success": true,
-                    "message": "Matches for that event found.",
-                    "error": "400",
-                    "data": { matches }
-                })
-            } catch (error) {
-                res.json({
-                    "success": false,
-                    "message": "No matches for that event found.",
-                    "error": "400",
-                    "data": {}
-                })
-            }
-        })
+                if (playerSets == null) {
+                     matches = await getPlayer.getPlayerMatchesSMASHbySmashTag(req.query.tournament,req.query.slug, req.query.game, req.query.name.toLowerCase())
+                }
+                else {
+                    for (let set of playerSets.sets) {
+                        let displayscore = set.displayScore
+                        let players = []
+                        if (displayscore != "DQ") {
+                            players = divide(displayscore)
+                            players[0] = validateName(players[0]).toLowerCase()
+                            players[1] = validateName(players[1]).toLowerCase()
+
+                            for (let player of players) {
+                                if (player == req.query.name.toLowerCase()) {
+                                    matches.push(set)
+                                }
+                            }
+                        }
+                    }
+                }
+                    res.json({
+                        "success": true,
+                        "message": "Matches for that event found.",
+                        "data": { matches }
+                    })
+                 
+            }   catch (error) {
+                    res.json({
+                        "success": false,
+                        "message": "No matches for that event found.",
+                        "error": "400",
+                        "data": {}
+                    })
+                }
+            })
 
     // Find youtube match for a specified match of that game for a player, otherwise it will return an error or a null value
     // We use tourney, game, phase and displayscore as query parameters
@@ -97,12 +135,4 @@ module.exports = function (app) {
             }
         })
 
-
-    //ONLY FOR TESTING
-    app.route('/players/:name')
-        .get(async function (req, res) {
-            let matches = await getPlayer.getPlayerMatchesSMASHbySmashTag('the-colosseum-spring-2018', 'dragon ball fighterz', req.params.name)
-            res.json(matches)
-        }
-        )
 }
