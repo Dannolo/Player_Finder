@@ -6,7 +6,7 @@ function creatingList(list) {
     let tournaments = []
     list.forEach(element => {
         let tourney = new Event(element)
-        if(tourney.game == 'dragon ball fighterz' || tourney.game == '"street fighter v arcade edition 1' || tourney.game == 'tekken 7'){
+        if(tourney.game == 'dragon ball fighterz' || tourney.game == 'street fighter v arcade edition 1' || tourney.game == 'tekken 7'){
             tournaments.push(tourney)
         }
     })
