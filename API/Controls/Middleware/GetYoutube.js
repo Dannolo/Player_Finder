@@ -3,8 +3,10 @@
 var YouTube = require('youtube-node');
 const chooseMatch = require('./GetMatch').chooseMatch
 
+const youtubeKEY = process.env.YOUTUBE_KEY
+
 var youTube = new YouTube();
-youTube.setKey('AIzaSyDou1E_cc5N4KbPhDlp6Y1I3hxyx2-ZBhM');
+youTube.setKey(youtubeKEY);
 
 ////////////////////////////////////
 

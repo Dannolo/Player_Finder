@@ -271,7 +271,7 @@ function createList(data) {
 $("#find").click(function (e) {
 
     player = document.getElementById('player').value
-    let url = "http://localhost:3000/playerFinder/player?name=" + player
+    let url = "https://fgc-player-finder.herokuapp.com/playerFinder/player?name=" + player
     fade()
     spinner.removeAttribute('hidden')
     fetch(url, { mode: 'cors' }).then(response => response.json())
@@ -311,7 +311,7 @@ $("#find").click(function (e) {
 })
 
 function searchMatch(index_event, index_match, eventname, fullRoundText, displayName, game) {
-    let url = "http://localhost:3000/playerFinder/match?tourney=" + eventname + "&phase=" + fullRoundText + "&displayScore=" + displayName + "&game=" + game
+    let url = "https://fgc-player-finder.herokuapp.com/playerFinder/match?tourney=" + eventname + "&phase=" + fullRoundText + "&displayScore=" + displayName + "&game=" + game
     var button = document.getElementById('match' + index_match)
 
     fetch(url, { mode: 'cors' }).then(response => response.json())
@@ -331,7 +331,7 @@ function searchMatch(index_event, index_match, eventname, fullRoundText, display
 }
 
 function loadMatches(index, tournament, name, slug, game) {
-    let url = "http://localhost:3000/playerFinder/event?" + "tournament=" + tournament + "&name=" + name + "&slug=" + slug + "&game=" + game
+    let url = "https://fgc-player-finder.herokuapp.com/playerFinder/event?" + "tournament=" + tournament + "&name=" + name + "&slug=" + slug + "&game=" + game
     console.log(url)
     var button = document.getElementById('brackets' + index)
     fetch(url, { mode: 'cors' }).then(response => response.json())

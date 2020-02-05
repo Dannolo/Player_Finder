@@ -9,10 +9,10 @@ const Tournament = smashgg.Tournament
 const { MongoClient } = require('mongodb')
 let insertDocuments = require("../../DB/insertDocument").insertDocuments
 
-
+const smashKEY = process.env.SMASH_KEY
 
 //AuthS Key
-smashgg.initialize('371d53adec5bb1afdc3537835d792c19');
+smashgg.initialize(smashKEY);
 
 ////////////////////////////////////
 

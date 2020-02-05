@@ -7,12 +7,15 @@ var mongoose = require("mongoose")
 
 const port = process.env.PORT || 3000
 
+const usernameDB = process.env.DB_USER
+const passwordDB = process.env.DB_PASS
+
 const bodyParser = require('body-parser')
 
 var uristring =
   process.env.MONGOLAB_URI ||
   process.env.MONGOHQ_URL ||
-  "mongodb://davideSchmidt:playerfinder@playerfinder-shard-00-00-umz1y.mongodb.net:27017,playerfinder-shard-00-01-umz1y.mongodb.net:27017,playerfinder-shard-00-02-umz1y.mongodb.net:27017/test?ssl=true&replicaSet=PlayerFinder-shard-0&authSource=admin&retryWrites=true&w=majority"
+  "mongodb://"+ usernameDB +":" + passwordDB + "@playerfinder-shard-00-00-umz1y.mongodb.net:27017,playerfinder-shard-00-01-umz1y.mongodb.net:27017,playerfinder-shard-00-02-umz1y.mongodb.net:27017/test?ssl=true&replicaSet=PlayerFinder-shard-0&authSource=admin&retryWrites=true&w=majority"
 
 app.use('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
