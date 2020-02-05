@@ -59,6 +59,7 @@ module.exports = function (app) {
         })
     // Find matches for a specified event of that game for a player
     // We use Slug, game and name as query parameters
+    // string tournament: string with tournament name
     // string Slug: string needed to fetch a call to Smash.gg site
     // string game: specifies which game for the tournament to choose
     // string name: name of the player
