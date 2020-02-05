@@ -31,7 +31,7 @@ const routes = require('./API/Routes/routes')
 routes(app)
 
 app.use(function (req, res) {
-  res.status(404).send('Ouch, that is hell you are walking to.')
+  res.status(200).send("WELCOME TO PLAYER FINDER")
 })
 
 app.listen(port)
