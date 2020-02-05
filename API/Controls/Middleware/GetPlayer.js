@@ -3,12 +3,22 @@
 const axios = require('axios').default
 const Player = require('../../Models/player').Player
 const Match = require('../../Models/match').Match
-const smashgg = require('smashgg.js');
+const smashgg = require('smashgg.js')
 const { Event } = smashgg;
 const Tournament = smashgg.Tournament
+const { MongoClient } = require('mongodb')
+let insertDocuments = require("../../DB/insertDocument").insertDocuments
+
+const smashKEY = process.env.SMASH_KEY
 
 //AuthS Key
-smashgg.initialize('371d53adec5bb1afdc3537835d792c19');
+smashgg.initialize(smashKEY);
+
+////////////////////////////////////
+
+// Auxiliary functions //
+
+///////////////////////////////////
 
 function validateName(name) {
   for (let index = 0; index < name.length; index++) {
@@ -34,6 +44,25 @@ function divide(displayName) {
 
 ////////////////////////////////////
 
+// DB CALL FOR CACHING //
+
+///////////////////////////////////
+
+const usernameDB = process.env.DB_USER
+const passwordDB = process.env.DB_PASS
+
+async function addSets(name, slug, game, set) {
+  const uri = "mongodb://"+ usernameDB +":" + passwordDB + "@playerfinder-shard-00-00-umz1y.mongodb.net:27017,playerfinder-shard-00-01-umz1y.mongodb.net:27017,playerfinder-shard-00-02-umz1y.mongodb.net:27017/test?ssl=true&replicaSet=PlayerFinder-shard-0&authSource=admin&retryWrites=true&w=majority";
+
+  MongoClient.connect(uri, function (err, client) {
+      console.log("Connected successfully to server")
+
+      insertDocuments(name, slug, game, set)
+  })
+}
+
+////////////////////////////////////
+
 // FIGHTING GAME PART //
 
 ///////////////////////////////////
@@ -47,19 +76,48 @@ exports.getPlayerSRK = async function (name) {
     var player = new Player(response.data)
     return player
   } catch (error) {
-    console.error(error);
+    return res.json({
+      "success": false,
+      "message": "No player with this name has been found, please be sure to have typed it right.",
+      "error": "400",
+      "data": { }
+  })
   }
 }
 
 //Getting tournament datas from Smash.gg
-exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, name) {
+exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, slug, genre, name) {
   try {
   let playerSets = []
-  let tourney = await Tournament.get(tournament)
+  let eventSets = []
+  let tourney
+  let attends
+  let attend
+
+  try {
+    tourney = await Tournament.get(slug)
+  } catch (error) {
+    return res.json({
+      "success": false,
+      "message": "No tournament with this name has been found, please be sure to have typed it right.",
+      "error": "400",
+      "data": {}
+    })
+  }
+  
   let events = await tourney.getEvents()
   
-  let attends = await tourney.searchAttendees(name)
-  let attend = attends[0]
+  try {
+    attends = await tourney.searchAttendees(name)
+    attend = attends[0]
+  } catch (error) {
+    return res.json({
+      "success": false,
+      "message": "No player with this name in this event has been found, please be sure to have typed it right.",
+      "error": "400",
+      "data": {}
+    })
+  }
   
   let id = attend.getId()
   
@@ -74,6 +132,7 @@ exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, nam
 
           //Cycling on Sets(Every match done in that phase) and taking only where player is
           for (const set of sets) {
+            eventSets.push(set)
             let displayscore = set.displayScore
             let players = []
               players[0] = set.player1.attendeeIds[0]
@@ -91,9 +150,17 @@ exports.getPlayerMatchesSMASHbySmashTag = async function (tournament, genre, nam
       }
     }
   }
+
+  await addSets(tournament, slug, genre, eventSets)
+
   return playerSets
   } catch (error) {
-    return null
+    return res.json({
+      "success": false,
+      "message": "Something went wrong",
+      "error": "400",
+      "data": {}
+    })
   }
 
   
@@ -131,7 +198,6 @@ exports.getPlayerMatchesSMASHbyDisplayName = async function (tournament, event, 
         }
       }
     }
-    console.log(playerSets)
     return playerSets
 
   } catch (error) {

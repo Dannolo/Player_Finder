@@ -1,6 +1,5 @@
 // package needed
 
-const creatingList = require("./Resource/creatingList").creatingList
 const Node = require("./node").Node
 const validateSlug = require("./Resource/validateName").validateSlug
 

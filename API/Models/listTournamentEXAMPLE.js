@@ -1,4 +1,4 @@
-// constructor function for the Tournament class
+// A pseudo list of tournament
 var listanomi = [
     "fzc-showdown",
     "sacramento-fighterz-72",

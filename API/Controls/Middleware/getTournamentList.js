@@ -27,3 +27,9 @@ exports.getTournamentsList = async function () {
   }
 }
 
+////////////////////////////////////
+
+// WE WILL BE IMPLEMENTED MAYBE IN THE FUTURE, RIGHT NOW IMPOSSIBLE //
+
+///////////////////////////////////
+

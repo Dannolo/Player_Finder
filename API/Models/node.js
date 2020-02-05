@@ -1,4 +1,3 @@
-// package needed
 
 // constructor function for the List class
 function Node(node) {

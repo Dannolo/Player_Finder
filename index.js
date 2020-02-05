@@ -1,24 +1,31 @@
 //Defining core variables for the server to start
-//ONLY FOR DEBUG RIGHT NOW
 
 const express = require('express')
 const app = express()
 const cors = require('cors')
+var mongoose = require("mongoose")
+
 const port = process.env.PORT || 3000
 
-//Declaring a parser for request
+const usernameDB = process.env.DB_USER
+const passwordDB = process.env.DB_PASS
+
 const bodyParser = require('body-parser')
 
-app.use('*', function(req, res, next) {
-  //replace localhost:8080 to the ip address:port of your server
+var uristring =
+  process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL ||
+  "mongodb://"+ usernameDB +":" + passwordDB + "@playerfinder-shard-00-00-umz1y.mongodb.net:27017,playerfinder-shard-00-01-umz1y.mongodb.net:27017,playerfinder-shard-00-02-umz1y.mongodb.net:27017/test?ssl=true&replicaSet=PlayerFinder-shard-0&authSource=admin&retryWrites=true&w=majority"
+
+app.use('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   res.header('Access-Control-Allow-Credentials', true);
-  next(); 
-  });
-  
-//enable pre-flight
+  next();
+});
+
+//enable CORS pre-flight 
 app.options('*', cors());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
@@ -27,10 +34,19 @@ const routes = require('./API/Routes/routes')
 routes(app)
 
 app.use(function (req, res) {
-  res.status(404).send('Ouch, that is hell you are walking to.')
+  res.status(200).send("WELCOME TO PLAYER FINDER")
 })
 
 app.listen(port)
 
-console.log('It works')
+//Be sure that the DB is alive
+mongoose.connect(uristring, function (err, res) {
+  if (err) {
+    console.log('ERROR connecting')
+  } else {
+    console.log('Succeeded connected')
+  }
+})
+
+console.log('WELCOME TO PLAYER FINDER')
 
