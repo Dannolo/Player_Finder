@@ -48,8 +48,11 @@ function divide(displayName) {
 
 ///////////////////////////////////
 
+const usernameDB = process.env.DB_USER
+const passwordDB = process.env.DB_PASS
+
 async function addSets(name, slug, game, set) {
-  const uri = "mongodb://davideSchmidt:playerfinder@playerfinder-shard-00-00-umz1y.mongodb.net:27017,playerfinder-shard-00-01-umz1y.mongodb.net:27017,playerfinder-shard-00-02-umz1y.mongodb.net:27017/test?ssl=true&replicaSet=PlayerFinder-shard-0&authSource=admin&retryWrites=true&w=majority";
+  const uri = "mongodb://"+ usernameDB +":" + passwordDB + "@playerfinder-shard-00-00-umz1y.mongodb.net:27017,playerfinder-shard-00-01-umz1y.mongodb.net:27017,playerfinder-shard-00-02-umz1y.mongodb.net:27017/test?ssl=true&replicaSet=PlayerFinder-shard-0&authSource=admin&retryWrites=true&w=majority";
 
   MongoClient.connect(uri, function (err, client) {
       console.log("Connected successfully to server")
