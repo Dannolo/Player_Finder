@@ -1,0 +1,41 @@
+
+.dropDownMenu ul li ul { max-height:150px; overflow:auto;}
+
+.dropDownMenu ul li ul button {
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  background-color: #e7e7e7; color: black;}
+
+.dropDownMenu ul li ul button:hover {background-color:#B8B8B8;}
+
+.buttonMenu {
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  background-color: #fc5a1a; color: black;}
+
+#buttonForesee {
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  background-color: orange; color: black;
+  margin-top: 30px;}

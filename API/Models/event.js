@@ -10,7 +10,7 @@ var moment = require('moment')
 var example = require("../Models/listTournamentEXAMPLE").listanomi
 moment().format()
 
-
+//lallero
 // constructor function for the Event class
 function Event(tournament) {
     this.name = validateComma(tournament.tournamentname)

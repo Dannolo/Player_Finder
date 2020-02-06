@@ -3,7 +3,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-var mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 const port = process.env.PORT || 3000
 
@@ -25,7 +25,7 @@ app.use('*', function (req, res, next) {
   next();
 });
 
-//enable CORS pre-flight 
+//enable CORS pre-flight
 app.options('*', cors());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
@@ -49,4 +49,3 @@ mongoose.connect(uristring, function (err, res) {
 })
 
 console.log('WELCOME TO PLAYER FINDER')
-
