@@ -1,4 +1,5 @@
 playerHero = require('../../Models/PlayerHero')
+player = require('../../Models/ProPlayer')
 
 getRequestTo = require('./getRequestTo')
 

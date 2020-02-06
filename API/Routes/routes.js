@@ -58,81 +58,114 @@ module.exports = function (app) {
         }
         )
 
-    //ONLY FOR TESTING
+    //Resource for the "Foresee the Match" API
+    //Retrieve specific informations about all the pro-players of the game (Dota2)
     app.route('/proPlayers')
       .get(async function(req, res){
         try {
 
           proPlayers = await initializeProPlayers.initializeProPlayers();
-          res.json(proPlayers);
+          res.json({"success" : true,
+                    "message" : "Pro-players found.",
+                    "data" : proPlayers});
 
         } catch (error) {
-          console.log('\nError in retrieving informations about proplayers')
+            res.json({"success" : false,
+                      "message" : "Pro-players not found",
+                      "error" : 404,
+                      "data" : {}})
         }
       });
 
-    //ONLY FOR TESTING
+    //Resource for the "Foresee the Match" API
+    //Retrieve specific informations about all the heroes of the game (Dota2)
     app.route('/heroes')
       .get(async function(req, res){
         try{
 
           allHeroes = await initializeHeroes.initializeHeroes();
-          res.json(allHeroes);
+          res.json({"success" : true,
+                    "messagge" : "Heroes found.",
+                    "data" : allHeroes});
 
         } catch (error) {
-          console.log('\nError in retrieving informations about heroes')
+            res.json({"success" : false,
+                      "messagge" : "Heroes not found.",
+                      "error" : 404,
+                      "data" : allHeroes})
         }
       });
 
     //Resource for the "Foresee the Match" API
+    //Compare two pro-players considering the hero that both of them are using and the hero they have as opponent
+    //We use player_1, player_2, hero_1 and hero_2 as query parameters
+    //player_1 and player_2: name (in-game) of the player
+    //hero_1 and hero_2: name of the hero
     app.route('/foreseeMatch')
       .get(async function(req, res){
         try{
 
-          //if players are not initialized yet, initialize them
-          if(proPlayers.length === 0){
-            proPlayers = await initializeProPlayers.initializeProPlayers();
-          }
+          //Stop if trying to compare a player with him/herslef
+          if(req.query.player_1 === req.query.player_2){
 
-          //if heroes are not initialized yet, initialize them
-          if(allHeroes.length === 0){
-            allHeroes = await initializeHeroes.initializeHeroes();
-          }
+            res.json({"success" : false,
+                      "message" : "Bad Request: it is not allowed to compare a player with him/herself",
+                      "error" : 400,
+                      "data" : {}})
 
-          //auxiliary variables
-          var player_1 = proPlayers.find(o => o.name === req.query.player_1);
-          var actualHero_1 = allHeroes.find(o => o.name === req.query.hero_1);
-          var player_2 = proPlayers.find(o => o.name === req.query.player_2);
-          var actualHero_2 = allHeroes.find(o => o.name === req.query.hero_2);
+          } else {
 
-          //Getting informations about player_1
-          player_1 = await getCompleteInfo.getCompleteInfo(player_1, actualHero_1, actualHero_2);
+            //if players are not initialized yet, initialize them
+            if(proPlayers.length === 0){
+              proPlayers = await initializeProPlayers.initializeProPlayers();
+            }
 
-          //Getting informations about player_2
-          player_2 = await getCompleteInfo.getCompleteInfo(player_2, actualHero_2, actualHero_1);
+            //if heroes are not initialized yet, initialize them
+            if(allHeroes.length === 0){
+              allHeroes = await initializeHeroes.initializeHeroes();
+            }
 
-          //Getting informations about the comparison
-          let playersPoints = await comparePlayers.comparePlayers(player_1, player_2);
-          let heroesPoints = await compareHeroes.compareHeroes(actualHero_1, actualHero_2);
+            //auxiliary variables
+            var player_1 = proPlayers.find(o => o.name === req.query.player_1);
+            var actualHero_1 = allHeroes.find(o => o.name === req.query.hero_1);
+            var player_2 = proPlayers.find(o => o.name === req.query.player_2);
+            var actualHero_2 = allHeroes.find(o => o.name === req.query.hero_2);
 
-          //Send back all the informations
-          res.json({
-                    "player_1" : player_1,
-                    "player_2" : player_2,
-                    "player_1_points" : playersPoints[0],
-                    "player_2_points" : playersPoints[1],
-                    "player_1_percentage" : playersPoints[2],
-                    "player_2_percentage" : playersPoints[3],
-                    "hero_1" : actualHero_1,
-                    "hero_2" : actualHero_2,
-                    "hero_1_points" : heroesPoints[0],
-                    "hero_2_points" : heroesPoints[1],
-                    "hero_1_percentage" : heroesPoints[2],
-                    "hero_2_percentage" : heroesPoints[3]
+            //Getting informations about player_1
+            player_1 = await getCompleteInfo.getCompleteInfo(player_1, actualHero_1, actualHero_2);
+
+            //Getting informations about player_2
+            player_2 = await getCompleteInfo.getCompleteInfo(player_2, actualHero_2, actualHero_1);
+
+            //Getting informations about the comparison
+            let playersPoints = await comparePlayers.comparePlayers(player_1, player_2);
+            let heroesPoints = await compareHeroes.compareHeroes(actualHero_1, actualHero_2);
+
+            //Send back all the informations
+            res.json({"success" : true,
+                     "message" : "Comparison done.",
+                     "data" : {
+                                "player_1" : player_1,
+                                "player_2" : player_2,
+                                "player_1_points" : playersPoints[0],
+                                "player_2_points" : playersPoints[1],
+                                "player_1_percentage" : playersPoints[2],
+                                "player_2_percentage" : playersPoints[3],
+                                "hero_1" : actualHero_1,
+                                "hero_2" : actualHero_2,
+                                "hero_1_points" : heroesPoints[0],
+                                "hero_2_points" : heroesPoints[1],
+                                "hero_1_percentage" : heroesPoints[2],
+                                "hero_2_percentage" : heroesPoints[3]
+                              }
                   });
-
+          }
         } catch (error) {
-          console.log('\n' + error)
+            res.json({"success" : false,
+                      "message" : "Unable to compare players.",
+                      "error" : 404,
+                      "data" : {}});
         }
-      });
+
+    });
 }

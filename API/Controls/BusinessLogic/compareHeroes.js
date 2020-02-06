@@ -8,7 +8,7 @@ exports.compareHeroes = async function(hero_1, hero_2){
   let points = [0, 0, 0, 0];
 
   for (var i = 0; i < hero_1.roles.length; i++) {
-    points[0] += 50;
+    points[0] += 10;
   }
 
   points[0] += hero_1.pro_ban;
