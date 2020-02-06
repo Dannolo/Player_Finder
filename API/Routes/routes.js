@@ -50,6 +50,15 @@ module.exports = function (app) {
         return names
       }
 
+    ////////////////////////////////////
+
+    // Player Finder //
+
+    ///////////////////////////////////
+
+    //Find player's informations and events where he applied
+    // string name: name of the player
+
     app.route('/playerFinder/player/')
         .get(async function (req, res) {
             // let list = []
@@ -156,14 +165,12 @@ module.exports = function (app) {
             }
         })
 
+    
+    ////////////////////////////////////
 
-    //ONLY FOR TESTING
-    app.route('/players/:name')
-        .get(async function (req, res) {
-            let matches = await getPlayer.getPlayerMatchesSMASHbySmashTag('the-colosseum-spring-2018', 'dragon ball fighterz', req.params.name)
-            res.json(matches)
-        }
-        )
+    // Foresee the Match //
+
+    ///////////////////////////////////
 
     //Resource for the "Foresee the Match" API
     //Retrieve specific informations about all the pro-players of the game (Dota2)
