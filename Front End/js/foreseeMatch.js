@@ -3,7 +3,7 @@ let allHeroes = null;
 
 //When page loads, get all informations needed
 //Create all needed buttons with respective functions
-let url = "http://localhost:3000/proPlayers"
+let url = "https://sde-project345.herokuapp.com/proPlayers"
 fetch(url, {mode: 'cors'}).then(response => response.json())
   .then(data => {
     if(data.success == true){
@@ -43,7 +43,7 @@ fetch(url, {mode: 'cors'}).then(response => response.json())
     }
   });
 
-url = "http://localhost:3000/heroes"
+url = "https://sde-project345.herokuapp.com/heroes"
 fetch(url, {mode: 'cors'}).then(response => response.json())
   .then(data => {
     if(data.success == true){
@@ -124,7 +124,7 @@ $('#buttonForesee').click(function() {
     var description_2 = document.getElementById('tableDescription_2')
 
     //Obtainin informations and creating the table
-    url = 'http://localhost:3000/foreseeMatch?player_1=' + $('#chosen_player_1')[0].innerText + "&hero_1=" + $('#chosen_hero_player_1')[0].innerText + "&player_2=" + $('#chosen_player_2')[0].innerText + "&hero_2=" + $('#chosen_hero_player_2')[0].innerText;
+    url = 'https://sde-project345.herokuapp.com/foreseeMatch?player_1=' + $('#chosen_player_1')[0].innerText + "&hero_1=" + $('#chosen_hero_player_1')[0].innerText + "&player_2=" + $('#chosen_player_2')[0].innerText + "&hero_2=" + $('#chosen_hero_player_2')[0].innerText;
     fetch(url, {mode: 'cors'}).then(response => response.json())
       .then(data => {
         if(data.success == true){
