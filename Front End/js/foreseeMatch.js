@@ -345,11 +345,11 @@ $('#buttonForesee').click(function() {
           n_ofBans = document.createElement('tr')
 
           n_ofBans1_1 = document.createElement('td')
-          n_ofBans1_1.appendChild(document.createTextNode("Percentage of bans in pro matches"))
+          n_ofBans1_1.appendChild(document.createTextNode("Numbers of bans in pro matches"))
           n_ofBans1_2 = document.createElement('td');
-          n_ofBans1_2.appendChild(document.createTextNode(comparison.hero_1.pro_ban + "%"));
+          n_ofBans1_2.appendChild(document.createTextNode(comparison.hero_1.pro_ban));
           n_ofBans1_3 = document.createElement('td');
-          n_ofBans1_3.appendChild(document.createTextNode(comparison.hero_2.pro_ban + "%"));
+          n_ofBans1_3.appendChild(document.createTextNode(comparison.hero_2.pro_ban));
 
           hero_results.appendChild(n_ofBans);
           n_ofBans.appendChild(n_ofBans1_1);
@@ -360,11 +360,11 @@ $('#buttonForesee').click(function() {
           n_ofWins = document.createElement('tr')
 
           n_ofWins1_1 = document.createElement('td')
-          n_ofWins1_1.appendChild(document.createTextNode("Percentage of wins in pro matches"))
+          n_ofWins1_1.appendChild(document.createTextNode("Numbers of wins in pro matches"))
           n_ofWins1_2 = document.createElement('td');
-          n_ofWins1_2.appendChild(document.createTextNode(comparison.hero_1.pro_win + "%"));
+          n_ofWins1_2.appendChild(document.createTextNode(comparison.hero_1.pro_win));
           n_ofWins1_3 = document.createElement('td');
-          n_ofWins1_3.appendChild(document.createTextNode(comparison.hero_2.pro_win + "%"));
+          n_ofWins1_3.appendChild(document.createTextNode(comparison.hero_2.pro_win));
 
           hero_results.appendChild(n_ofWins);
           n_ofWins.appendChild(n_ofWins1_1);
@@ -375,11 +375,11 @@ $('#buttonForesee').click(function() {
           n_ofPick = document.createElement('tr')
 
           n_ofPick1_1 = document.createElement('td')
-          n_ofPick1_1.appendChild(document.createTextNode("Percentage of pick in pro matches"))
+          n_ofPick1_1.appendChild(document.createTextNode("Number of pick in pro matches"))
           n_ofPick1_2 = document.createElement('td');
-          n_ofPick1_2.appendChild(document.createTextNode(comparison.hero_1.pro_pick + "%"));
+          n_ofPick1_2.appendChild(document.createTextNode(comparison.hero_1.pro_pick));
           n_ofPick1_3 = document.createElement('td');
-          n_ofPick1_3.appendChild(document.createTextNode(comparison.hero_2.pro_pick + "%"));
+          n_ofPick1_3.appendChild(document.createTextNode(comparison.hero_2.pro_pick));
 
           hero_results.appendChild(n_ofPick);
           n_ofPick.appendChild(n_ofPick1_1);
